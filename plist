@@ -508,6 +508,7 @@
 /usr/local/opnsense/mvc/app/library/OPNsense/System/Status/CrashReporterStatus.php
 /usr/local/opnsense/mvc/app/library/OPNsense/System/Status/FirewallStatus.php
 /usr/local/opnsense/mvc/app/library/OPNsense/System/SystemStatus.php
+/usr/local/opnsense/mvc/app/library/OPNsense/Trust/Store.php
 /usr/local/opnsense/mvc/app/models/OPNsense/Base/BaseModel.php
 /usr/local/opnsense/mvc/app/models/OPNsense/Base/BaseModelMigration.php
 /usr/local/opnsense/mvc/app/models/OPNsense/Base/BaseValidator.php
@@ -978,6 +979,7 @@
 /usr/local/opnsense/scripts/proxy/setup.sh
 /usr/local/opnsense/scripts/routes/del_route.py
 /usr/local/opnsense/scripts/routes/gateway_status.php
+/usr/local/opnsense/scripts/routes/gateway_watcher.php
 /usr/local/opnsense/scripts/routes/gateways.php
 /usr/local/opnsense/scripts/routes/show_routes.py
 /usr/local/opnsense/scripts/shaper/dummynet_stats.py

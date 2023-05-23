@@ -3872,6 +3872,9 @@ function get_interfaces_info($include_unlinked = false)
         $ifinfo['status'] = in_array($ifinfo['if'], $ifup) ? 'up' : 'down';
         $ifinfo['statusv6'] = in_array($ifinfo['ifv6'], $ifup) ? 'up' : 'down';
 
+	/* undesired side effect of legacy_config_get_interfaces() */
+        $ifinfo['ipaddr'] = $ifinfo['ipaddrv6'] = null;
+
         if (!empty($all_intf_details[$ifinfo['if']])) {
             if (
                 isset($all_intf_details[$ifinfo['if']]['status']) &&
@@ -4041,6 +4044,7 @@ function get_interfaces_info($include_unlinked = false)
                 $ifinfo['bridgeint'] = $bridge;
             }
         }
+
         $result[$ifdescr] = $ifinfo;
     }
 
@@ -4339,6 +4343,7 @@ function interfaces_has_prefix_only($interface)
 
 function interfaces_primary_address($interface, $ifconfig_details = null)
 {
+    /* primary returns preferred local address according to configuration */
     $ifcfgip = $network = $subnetbits = null;
 
     foreach (interfaces_addresses($interface, false, $ifconfig_details) as $addr) {
@@ -4362,54 +4367,58 @@ function interfaces_primary_address($interface, $ifconfig_details = null)
     return [ $ifcfgip, $network, $subnetbits ];
 }
 
-function interfaces_primary_address6($interface, $ifconfig_details = null)
+function _interfaces_primary_address6($interface, $ifconfig_details = null, $allow_track = true, $link_local = false)
 {
     $ifcfgipv6 = $networkv6 = $subnetbitsv6 = null;
 
-    if (interfaces_has_prefix_only($interface)) {
+    if ($allow_track && !$link_local && interfaces_has_prefix_only($interface)) {
         /* extend the search scope for a non-NA mode to tracking interfaces */
         $interface = array_merge([$interface], array_keys(link_interface_to_track6($interface)));
     }
 
     foreach (interfaces_addresses($interface, false, $ifconfig_details) as $addr) {
-        if ($addr['family'] != 'inet6' || $addr['deprecated'] || $addr['tentative'] || $addr['alias'] || $addr['scope']) {
+        if ($addr['family'] != 'inet6' || $addr['deprecated'] || $addr['tentative'] || $addr['alias']) {
+            continue;
+        }
+
+        if ($link_local && !$addr['scope']) {
+            continue;
+        } elseif (!$link_local && $addr['scope']) {
             continue;
         }
 
         $networkv6 = gen_subnetv6($addr['address'], $addr['bits']) . "/{$addr['bits']}";
         $subnetbitsv6 = $addr['bits'];
         $ifcfgipv6 = $addr['address'];
+        if ($link_local) {
+            $ifcfgipv6 .= "%{$addr['name']}";
+        }
         break; /* all done */
     }
 
     return [ $ifcfgipv6, $networkv6, $subnetbitsv6 ];
+}
+
+function interfaces_routed_address6($interface, $ifconfig_details = null)
+{
+   /* "routed" returns a non-link-local address only, possiby derived from tracking interfaces */
+    return _interfaces_primary_address6($interface, $ifconfig_details, true, false);
 }
 
 function interfaces_scoped_address6($interface, $ifconfig_details = null)
 {
-    $ifcfgipv6 = $networkv6 = $subnetbitsv6 = null;
-
-    foreach (interfaces_addresses($interface, false, $ifconfig_details) as $addr) {
-        if ($addr['family'] != 'inet6' || $addr['deprecated'] || $addr['tentative'] || $addr['alias'] || !$addr['scope']) {
-            continue;
-        }
-
-        $networkv6 = gen_subnetv6($addr['address'], $addr['bits']) . "/{$addr['bits']}";
-        $subnetbitsv6 = $addr['bits'];
-        $ifcfgipv6 = "{$addr['address']}%{$addr['name']}";
-        break; /* all done */
-    }
-
-    return [ $ifcfgipv6, $networkv6, $subnetbitsv6 ];
+    /* "scoped" returns own link-local address only */
+    return _interfaces_primary_address6($interface, $ifconfig_details, false, true);
 }
 
-function interfaces_prefix_address6($interface, $ifconfig_details = null)
+function interfaces_primary_address6($interface, $ifconfig_details = null)
 {
+    /* primary returns preferred local address according to configuration */
     $ifcfgipv6 = $networkv6 = $subnetbitsv6 = null;
 
     if (interfaces_has_prefix_only($interface)) {
-        return interfaces_scoped_address6($interface, $ifconfig_details);
+        return _interfaces_primary_address6($interface, $ifconfig_details, false, true);
     }
 
-    return interfaces_primary_address6($interface, $ifconfig_details);
+    return _interfaces_primary_address6($interface, $ifconfig_details, false, false);
 }
