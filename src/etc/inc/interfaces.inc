@@ -868,7 +868,8 @@ function interface_bring_down($interface = 'wan', $ifacecfg = false)
 
     /* may be required or not, but kept here for symmetry with IPv4 */
     if (!empty($ifcfg['ipaddrv6'])) {
-        list ($ip6) = interfaces_primary_address6($interface);
+        /* edge case: bring down a primary GUA, but not a link-local */
+        list ($ip6) = _interfaces_primary_address6($interface, $ifconfig_details, false, false);
         if (!empty($ip6)) {
             mwexecf('/sbin/ifconfig %s inet6 %s delete', [$realifv6, $ip6]);
         }
@@ -3872,7 +3873,7 @@ function get_interfaces_info($include_unlinked = false)
         $ifinfo['status'] = in_array($ifinfo['if'], $ifup) ? 'up' : 'down';
         $ifinfo['statusv6'] = in_array($ifinfo['ifv6'], $ifup) ? 'up' : 'down';
 
-	/* undesired side effect of legacy_config_get_interfaces() */
+        /* undesired side effect of legacy_config_get_interfaces() */
         $ifinfo['ipaddr'] = $ifinfo['ipaddrv6'] = null;
 
         if (!empty($all_intf_details[$ifinfo['if']])) {
