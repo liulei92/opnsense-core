@@ -252,13 +252,13 @@ include("head.inc");
       <section class="col-xs-12">
         <form method="post" name="iform" id="iform">
           <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+            <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
               <tr>
-                <td style="width:22%"><strong><?= gettext('Cryptography settings') ?></strong></td>
-                <td style="width:78%; text-align:right">
-                  <small><?=gettext("full help"); ?> </small>
-                  <i class="fa fa-toggle-off text-danger"  style="cursor: pointer;" id="show_all_help_page"></i>
-                </td>
+                <td colspan="2"><strong><?= gettext('Cryptography settings') ?></strong></td>
               </tr>
               <tr>
                 <td><a id="help_for_crypto_hardware" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext('Hardware acceleration') ?></td>
@@ -282,13 +282,9 @@ include("head.inc");
                   </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
               <tr>
-                <td style="width:22%"><strong><?= gettext('Thermal Sensors') ?></strong></td>
-                <td style="width:78%"></td>
+                <td colspan="2"><strong><?= gettext('Thermal Sensors') ?></strong></td>
               </tr>
               <tr>
                 <td><a id="help_for_thermal_hardware" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Hardware");?> </td>
@@ -311,13 +307,9 @@ include("head.inc");
                   </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
               <tr>
-                <td style="width:22%"><strong><?= gettext('Periodic Backups') ?></strong></td>
-                <td style="width:78%"></td>
+                <td colspan="2"><strong><?= gettext('Periodic Backups') ?></strong></td>
               </tr>
               <tr>
                 <td><a id="help_for_rrdbackup" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Periodic RRD Backup");?></td>
@@ -388,13 +380,9 @@ include("head.inc");
                   </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
               <tr>
-                <td style="width:22%"><strong><?= gettext('Power Savings') ?></strong></td>
-                <td style="width:78%"></td>
+                <td colspan="2"><strong><?= gettext('Power Savings') ?></strong></td>
               </tr>
               <tr>
                 <td><a id="help_for_powerd_enable" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Use PowerD"); ?></td>
@@ -476,16 +464,13 @@ include("head.inc");
                   </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
               <tr>
                 <td colspan="2"><strong><?= gettext('Disk / Memory Settings (reboot to apply changes)') ?></strong></td>
               </tr>
               <tr>
-                <td style="width:22%"><i class="fa fa-info-circle text-muted"></i> <?=gettext('Swap file'); ?></td>
-                <td style="width=78%">
+                <td><i class="fa fa-info-circle text-muted"></i> <?=gettext('Swap file'); ?></td>
+                <td>
                   <input name="use_swap_file" type="checkbox" id="use_swap_file" value="yes" <?=!empty($pconfig['use_swap_file']) ? 'checked="checked"' : '';?>/>
                   <?= gettext('Add a 2 GB swap file to the system') ?>
                 </td>
@@ -529,13 +514,9 @@ include("head.inc");
                   </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
                 <tr>
-                    <td style="width:22%"><strong><?= gettext('System Sounds') ?></strong></td>
-                    <td style="width:78%"></td>
+                    <td colspan="2"><strong><?= gettext('System Sounds') ?></strong></td>
                 </tr>
                 <tr>
                     <td><a id="help_for_disablebeep" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Startup/Shutdown Sound"); ?></td>
@@ -547,16 +528,13 @@ include("head.inc");
                         </div>
                     </td>
                 </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive">
-            <table class="table table-striped opnsense_standard_table_form">
-              <tr>
-                <td style="width:22%"></td>
-                <td style="width:78%">
-                  <input name="Submit" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
-                </td>
-              </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                    <input name="cancel" type="button" class="btn btn-default mr16" value="<?= html_safe(gettext('Cancel')) ?>" onclick="window.location.href='/system_advanced_misc.php'" />
+                        <input name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
+                    </td>
+                </tr>
             </table>
           </div>
         </form>

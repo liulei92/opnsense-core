@@ -511,13 +511,14 @@ $(document).ready(function() {
       <section class="col-xs-12">
         <form method="post" name="iform" id="iform">
           <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+            <table class="table opnsense_standard_table_form">
+            <colgroup>
+                <col style="width:22%"/>
+                <col/>
+            </colgroup>
+            <!-- 原每个table -->
               <tr>
-                <td style="width:22%"><strong><?=gettext('Web GUI');?></strong></td>
-                <td style="width:78%; text-align:right">
-                  <small><?=gettext("full help"); ?> </small>
-                  <i class="fa fa-toggle-off text-danger" style="cursor: pointer;" id="show_all_help_page"></i>
-                </td>
+                <td colspan="2"><strong><?=gettext('Web GUI');?></strong></td>
               </tr>
               <tr>
                 <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Protocol"); ?></td>
@@ -715,13 +716,9 @@ $(document).ready(function() {
                   </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
               <tr>
-                <td style="width:22%"><strong><?= gettext('Secure Shell') ?></strong></td>
-                <td style="width:78%"></td>
+                <td colspan="2"><strong><?= gettext('Secure Shell') ?></strong></td>
               </tr>
               <tr>
                 <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Secure Shell Server"); ?></td>
@@ -872,13 +869,9 @@ $(document).ready(function() {
                     </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
               <tr>
-                <td style="width:22%"><strong><?= gettext('Console') ?></strong></td>
-                <td style="width:78%"></td>
+                <td colspan="2"><strong><?= gettext('Console') ?></strong></td>
               </tr>
               <tr>
                 <td><i class="fa fa-info-circle text-muted"></i> <?= gettext('Console driver') ?></td>
@@ -947,13 +940,9 @@ $(document).ready(function() {
                   <?=gettext("Password protect the console menu"); ?>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
               <tr>
-                <td style="width:22%"><strong><?= gettext('Shell') ?></strong></td>
-                <td style="width:78%"></td>
+                <td colspan="2"><strong><?= gettext('Shell') ?></strong></td>
               </tr>
               <tr>
                 <td><a id="help_for_autologout" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext('Inactivity timeout') ?></td>
@@ -966,13 +955,9 @@ $(document).ready(function() {
                   </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
               <tr>
-                <td style="width:22%"><strong><?= gettext('Authentication') ?></strong></td>
-                <td style="width:78%"></td>
+                <td colspan="2"><strong><?= gettext('Authentication') ?></strong></td>
               </tr>
               <tr>
                 <td><a id="help_for_authmode" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?= gettext('Server') ?></td>
@@ -1043,13 +1028,9 @@ $(document).ready(function() {
                   </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
+              <!-- 原每个table -->
               <tr>
-                <td style="width:22%"><strong><?= gettext('Deployment') ?></strong></td>
-                <td style="width:78%"></td>
+                <td colspan="2"><strong><?= gettext('Deployment') ?></strong></td>
               </tr>
               <tr>
                 <td><a id="help_for_deployment" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Deployment type")?></td>
@@ -1067,13 +1048,13 @@ $(document).ready(function() {
                   </div>
                 </td>
               </tr>
-            </table>
-          </div>
-          <div class="content-box tab-content table-responsive">
-            <table class="table table-striped opnsense_standard_table_form">
+
               <tr>
-                <td style="width:22%"></td>
-                <td style="width:78%"><input name="Submit" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Save')) ?>" /></td>
+                <td></td>
+                <td>
+                    <input name="cancel" type="button" class="btn btn-default mr16" value="<?= html_safe(gettext('Cancel')) ?>" onclick="window.location.href='/system_advanced_admin.php'" />
+                    <input name="save" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Save')) ?>" />
+                </td>
               </tr>
             </table>
           </div>

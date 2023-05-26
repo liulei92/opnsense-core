@@ -234,7 +234,7 @@ $( document ).ready(function() {
   });
 
   // link delete selected
-  $("#btn_delete").click(function(event){
+  $("#0000000000000000000000000").click(function(event){
     event.preventDefault();
     var id = $(this).data('id');
     BootstrapDialog.show({
@@ -254,8 +254,6 @@ $( document ).ready(function() {
             }]
     });
   });
-  // watch scroll position and set to last known on page load
-  watchScrollPosition();
 });
 </script>
 
@@ -281,6 +279,21 @@ $( document ).ready(function() {
             <form method="post"  name="iform" id="iform">
               <input type="hidden" id="id" name="id" value="" />
               <input type="hidden" id="action" name="act" value="" />
+              <div class="row mb8">
+                <div class="col-sm-12 fz0">
+                    <a href="system_gateways_edit.php?act=new" class="btn btn-primary mr16" ghost data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                        <i class="fa fa-plus fa-fw"></i>
+                        <?= html_safe(gettext('Add')) ?>
+                    </a>
+<?php if (count($a_gateways)): ?>
+                    <button type="submit" id="0000000000000000000000000" name="del_x" class="btn btn-primary" ghost data-toggle="tooltip"
+                            title="<?= html_safe(gettext('Delete selected items')) ?>">
+                        <i class="fa fa-trash fa-fw"></i>
+                        <?= html_safe(gettext('Delete selected items')) ?>
+                    </button>
+<?php endif ?>
+                </div>
+              </div>
               <table class="table table-striped table-condensed">
                 <thead>
                   <tr>
@@ -296,17 +309,7 @@ $( document ).ready(function() {
                     <th class="text-nowrap hidden-xs"><?= gettext('Loss') ?></th>
                     <th><?=gettext("Status"); ?></th>
                     <th class="hidden-xs hidden-sm hidden-md"><?=gettext("Description"); ?></th>
-                    <th class="text-nowrap">
-                      <a href="system_gateways_edit.php" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
-                        <i class="fa fa-plus fa-fw"></i>
-                      </a>
-<?php if (count($a_gateways)): ?>
-                          <button type="submit" id="btn_delete" name="del_x" class="btn btn-default btn-xs" data-toggle="tooltip"
-                                  title="<?= html_safe(gettext('Delete selected items')) ?>">
-                              <i class="fa fa-trash fa-fw"></i>
-                          </button>
-<?php endif ?>
-                    </th>
+                    <th class="text-nowrap"><?=gettext("Commands"); ?></th>
                   </tr>
                 </thead>
                 <tbody>

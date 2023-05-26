@@ -278,13 +278,13 @@ $( document ).ready(function() {
     <section class="col-xs-12">
       <form method="post">
         <div class="content-box tab-content __mb">
-          <table class="table table-striped opnsense_standard_table_form">
+          <table class="table opnsense_standard_table_form">
+            <colgroup>
+                <col style="width:22%"/>
+                <col/>
+            </colgroup>
             <tr>
-              <td style="width:22%"><strong><?= gettext('System') ?></strong></td>
-              <td style="width:78%; text-align:right">
-                <small><?=gettext("full help"); ?> </small>
-                <i class="fa fa-toggle-off text-danger"  style="cursor: pointer;" id="show_all_help_page"></i>
-              </td>
+              <td colspan="2"><strong><?= gettext('System') ?></strong></td>
             </tr>
             <tr>
               <td><a id="help_for_hostname" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Hostname"); ?></td>
@@ -358,14 +358,9 @@ $( document ).ready(function() {
                 </div>
               </td>
             </tr>
-          </table>
-        </div>
-
-        <div class="content-box tab-content __mb">
-          <table class="table table-striped opnsense_standard_table_form">
+            <!-- 原每个table -->
             <tr>
-              <td style="width:22%"><strong><?= gettext('Trust') ?></strong></td>
-              <td style="width:78%"></td>
+              <td colspan="2"><strong><?= gettext('Trust') ?></strong></td>
             </tr>
             <tr>
               <td><a id="help_for_trust_store_intermediate_certs" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Store intermediate"); ?></td>
@@ -379,15 +374,9 @@ $( document ).ready(function() {
                 </div>
               </td>
             </tr>
-          </table>
-        </div>
-
-
-        <div class="content-box tab-content __mb">
-          <table class="table table-striped opnsense_standard_table_form">
+            <!-- 原每个table -->
             <tr>
-              <td style="width:22%"><strong><?= gettext('Networking') ?></strong></td>
-              <td style="width:78%"></td>
+                <td colspan="2"><strong><?= gettext('Networking') ?></strong></td>
             </tr>
             <tr>
               <td><a id="help_for_prefer_ipv4" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Prefer IPv4 over IPv6"); ?></td>
@@ -404,7 +393,7 @@ $( document ).ready(function() {
             <tr>
               <td><a id="help_for_dnsservers" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("DNS servers"); ?></td>
               <td>
-                <table class="table table-striped table-condensed">
+                <table class="table table-condensed">
                   <thead>
                     <tr>
                       <th style="width:350px;"><?=gettext("DNS Server"); ?></th>
@@ -459,7 +448,6 @@ $( document ).ready(function() {
               </td>
             </tr>
             <tr>
-            <tr>
               <td><a id="help_for_dnsservers_opt" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("DNS server options"); ?></td>
               <td>
                 <input name="dnsallowoverride" id="dnsallowoverride" type="checkbox" value="yes" <?= $pconfig['dnsallowoverride'] ? 'checked="checked"' : '' ?>/>
@@ -497,24 +485,22 @@ $( document ).ready(function() {
                 </div>
               </td>
             </tr>
-              <tr>
+            <tr>
                 <td><a id="help_for_gw_switch_default" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Gateway switching') ?></td>
                 <td>
-                  <input name="gw_switch_default" type="checkbox" id="gw_switch_default" value="yes" <?= !empty($pconfig['gw_switch_default']) ? 'checked="checked"' : '' ?> />
-                  <?=gettext("Allow default gateway switching"); ?>
-                  <div class="hidden" data-for="help_for_gw_switch_default">
+                    <input name="gw_switch_default" type="checkbox" id="gw_switch_default" value="yes" <?= !empty($pconfig['gw_switch_default']) ? 'checked="checked"' : '' ?> />
+                    <?=gettext("Allow default gateway switching"); ?>
+                    <div class="hidden" data-for="help_for_gw_switch_default">
                     <?= gettext('If the link where the default gateway resides fails switch the default gateway to another available one.') ?>
-                  </div>
+                    </div>
                 </td>
-              </tr>
-          </table>
-        </div>
-        <div class="content-box tab-content">
-          <table class="table table-striped opnsense_standard_table_form">
+            </tr>
+
             <tr>
-              <td style="width:22%"></td>
+              <td></td>
               <td>
-                <input name="Submit" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
+                <input name="cancel" type="button" class="btn btn-default mr16" value="<?= html_safe(gettext('Cancel')) ?>" onclick="window.location.href='/system_general.php'" />
+                <input name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
               </td>
             </tr>
           </table>

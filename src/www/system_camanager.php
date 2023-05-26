@@ -515,14 +515,11 @@ include("head.inc");
         <form method="post" name="iform" id="iform">
           <input type="hidden" name="id" id="id" value="<?=isset($id) ? $id :"";?>"/>
           <input type="hidden" name="act" id="action" value="<?=$act;?>"/>
-          <table class="table table-striped opnsense_standard_table_form">
-            <tr>
-              <td style="width:22%"></td>
-              <td style="width:78%; text-align:right">
-                <small><?=gettext("full help"); ?> </small>
-                <i class="fa fa-toggle-off text-danger"  style="cursor: pointer;" id="show_all_help_page"></i>
-              </td>
-            </tr>
+          <table class="table opnsense_standard_table_form">
+            <colgroup>
+                <col style="width:22%"/>
+                <col/>
+            </colgroup>
             <tr>
               <td><?=gettext("Descriptive name");?></td>
               <td>
@@ -545,18 +542,12 @@ include("head.inc");
                 </select>
               </td>
             </tr>
-          </table>
-          <!-- existing ca -->
-          <table id="existing" class="table table-striped opnsense_standard_table_form">
-            <thead>
-              <tr>
-                <th colspan="2"><?=gettext("Existing Certificate Authority");?></th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr>
-                <td style="width:22%"><a id="help_for_cert" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Certificate data");?></td>
-                <td style="width:78%">
+            <tr>
+            <th colspan="2"><?=gettext("Existing Certificate Authority");?></th>
+            </tr>
+            <tr>
+                <td><a id="help_for_cert" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Certificate data");?></td>
+                <td>
                   <textarea name="cert" cols="65" rows="7" id="cert"><?=isset($pconfig['cert']) ? $pconfig['cert'] : "";?></textarea>
                   <div class="hidden" data-for="help_for_cert">
                     <?=gettext("Paste a certificate in X.509 PEM format here.");?>
@@ -568,7 +559,7 @@ include("head.inc");
                   <a id="help_for_key" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Certificate Private Key");?><br />
                   <?=gettext("(optional)");?>
                 </td>
-                <td style="width:78%">
+                <td>
                   <textarea name="key" id="key" cols="65" rows="7"><?= isset($pconfig['key']) ? $pconfig['key'] : "";?></textarea>
                   <div class="hidden" data-for="help_for_key">
                     <?=gettext("Paste the private key for the above certificate here. This is optional in most cases, but required if you need to generate a Certificate Revocation List (CRL).");?>
@@ -583,11 +574,13 @@ include("head.inc");
                     <?=gettext("Enter a decimal number to be used as the serial number for the next certificate to be created using this CA.");?>
                   </div>
                 </td>
-              </tr>
-              </tbody>
-            </table>
+            </tr>
             <!-- internal ca -->
-            <table  id="internal" class="table table-striped opnsense_standard_table_form">
+            <table id="internal" class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
               <thead>
                 <tr>
                   <th colspan="2"><?=gettext("Internal Certificate Authority");?></th>
@@ -595,8 +588,8 @@ include("head.inc");
               </thead>
               <tbody>
                 <tr id='intermediate'>
-                  <td style="width:22%"> <i class="fa fa-info-circle text-muted"></i>  <?=gettext("Signing Certificate Authority");?></td>
-                  <td style="width:78%">
+                  <td> <i class="fa fa-info-circle text-muted"></i>  <?=gettext("Signing Certificate Authority");?></td>
+                  <td>
                     <select name='caref' id='caref' class="selectpicker" onchange='internalca_change()'>
 <?php
                     foreach ($a_ca as $ca) :
@@ -611,7 +604,7 @@ include("head.inc");
                 </tr>
                 <tr>
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Key Type");?></td>
-                  <td style="width:78%">
+                  <td>
                     <select name='keytype' id='keytype' class="selectpicker">
                   <option value="RSA" <?=$pconfig['keytype'] == "RSA" ? "selected=\"selected\"" : "";?>>
                     <?=gettext("RSA");?>
@@ -624,7 +617,7 @@ include("head.inc");
                 </tr>
                 <tr id='RSA'>
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Key length");?> (<?=gettext("bits");?>)</td>
-                  <td style="width:78%">
+                  <td>
                     <select name='keylen' id='keylen' class="selectpicker">
 <?php
                         foreach ($ca_keylens as $len) :?>
@@ -637,7 +630,7 @@ include("head.inc");
                 <tr id='blank'><td></td></tr>
                 <tr id='EC'>
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Curve");?></td>
-                  <td style="width:78%">
+                  <td>
                     <select name='curve' id='curve' class="selectpicker">
 <?php
                     foreach ($ca_curves as $curve) :?>
@@ -740,17 +733,16 @@ include("head.inc");
                     </div>
                   </td>
                 </tr>
-              </tbody>
             </table>
-
-            <table class="table opnsense_standard_table_form">
-            <tr>
-              <td style="width:22%">&nbsp;</td>
-              <td style="width:78%">
-                <input id="submit" name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
-              </td>
-            </tr>
-          </table>
+            <table class="table opnsense_standard_table_form" style="border-spacing: 0;">
+                <tr>
+                    <td style="width:22%"></td>
+                    <td>
+                        <input name="cancel" type="button" class="btn btn-default mr16" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_camanager.php'" />
+                        <input id="submit" name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
+                    </td>
+                </tr>
+            </table>
         </form>
 
 <?php
@@ -759,6 +751,14 @@ include("head.inc");
           <input type="hidden" name="id" id="id" value="<?=isset($id) ? $id :"";?>"/>
           <input type="hidden" name="act" id="action" value="<?=$act;?>"/>
         </form>
+        <div class="row mb8">
+            <div class="col-sm-12 fz0">
+                <a href="system_camanager.php?act=new" class="btn btn-primary mr16" ghost data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                  <i class="fa fa-plus fa-fw"></i>
+                  <?= html_safe(gettext('Add')) ?>
+                </a>
+            </div>
+        </div>
         <table style="width:100%; border:0;" class="table table-striped">
           <thead>
             <tr>
@@ -767,11 +767,7 @@ include("head.inc");
               <th><?=gettext("Issuer");?></th>
               <th><?=gettext("Certificates");?></th>
               <th><?=gettext("Distinguished Name");?></th>
-              <th class="text-nowrap">
-                <a href="system_camanager.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
-                  <i class="fa fa-plus fa-fw"></i>
-                </a>
-              </th>
+              <th class="text-nowrap"><?=gettext("Commands"); ?></th>
             </tr>
           </thead>
           <tbody>

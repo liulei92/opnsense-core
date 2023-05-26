@@ -522,7 +522,7 @@ $( document ).ready(function() {
             <?php if ($act == "new" || $act == "edit") :
 ?>
             <form id="iform" name="iform" method="post">
-              <table class="table table-striped opnsense_standard_table_form">
+              <table class="table opnsense_standard_table_form">
                 <tr>
                   <td style="width:22%"></td>
                   <td style="width:78%; text-align:right">
@@ -895,6 +895,7 @@ endif; ?>
                 <tr>
                   <td>&nbsp;</td>
                   <td>
+                    <input name="cancel" type="button" class="btn btn-default mr16" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_authservers.php'" />
                     <input id="submit" name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
 <?php if (isset($id)) :
 ?>
@@ -906,8 +907,15 @@ endif;?>
               </table>
             </form>
 <?php
-else :
-?>
+          else :?>
+          <div class="row mb8">
+            <div class="col-sm-12 fz0">
+                <a href="system_authservers.php?act=new" class="btn btn-primary mr16" ghost data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                    <i class="fa fa-plus fa-fw"></i>
+                    <?= html_safe(gettext('Add')) ?>
+                </a>
+            </div>
+          </div>
           <form id="iform_overview" method="post">
             <input type="hidden" id="overview_id" name="id">
             <input type="hidden" id="overview_act" name="act">
@@ -917,11 +925,7 @@ else :
                   <th><?=gettext("Server Name");?></th>
                   <th style="width:25%"><?=gettext("Type");?></th>
                   <th style="width:35%"><?=gettext("Host Name");?></th>
-                  <th style="width:10%" class="text-nowrap">
-                    <a href="system_authservers.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
-                      <i class="fa fa-plus fa-fw"></i>
-                    </a>
-                  </th>
+                  <th style="width:10%" class="text-nowrap"><?=gettext("Commands"); ?></th>
                 </tr>
               </thead>
               <tbody>

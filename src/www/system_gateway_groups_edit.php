@@ -166,14 +166,11 @@ $( document ).ready(function() {
           <div class="tab-content content-box col-xs-12">
             <div class="table-responsive">
               <form method="post" name="iform" id="iform">
-                <table class="table table-striped opnsense_standard_table_form">
-                  <tr>
-                    <td style="width:22%"></td>
-                    <td style="width:78%; text-align:right">
-                      <small><?=gettext("full help"); ?> </small>
-                      <i class="fa fa-toggle-off text-danger"  style="cursor: pointer;" id="show_all_help_page"></i>
-                    </td>
-                  </tr>
+                <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
                   <tr>
                     <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Group Name"); ?></td>
                     <td>
@@ -277,13 +274,13 @@ $( document ).ready(function() {
                   <tr>
                     <td></td>
                     <td>
-                      <input name="Submit" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
-                      <input type="button" class="btn btn-default" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_gateway_groups.php'" />
+                        <input name="cancel" type="button" class="btn btn-default mr16" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_gateway_groups.php'" />
+                        <input name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
 <?php
-                      if (isset($id)) :?>
-                      <input name="id" type="hidden" value="<?=$id;?>" />
+                        if (isset($id)) :?>
+                        <input name="id" type="hidden" value="<?=$id;?>" />
 <?php
-                      endif; ?>
+                        endif; ?>
                     </td>
                   </tr>
                 </table>

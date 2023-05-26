@@ -75,57 +75,53 @@
 </script>
 
 <div class="content-box">
+    <div class="col-sm-12">
+        <div class="row table-responsive">
+            <table class="table table-nobordered">
+                <tr>
+                    <td style="padding-left: 0;">
+                        <input type="checkbox" id="resolve" name="resolve" value="yes">
+                    </td>
+                    <td>
+                        <strong><?=gettext("Name resolution");?></strong>
+                        <p class="text-muted">
+                            <small>
+                                {{ lang._('Enable this to attempt to resolve names when displaying the tables. By enabling name resolution, the query may take longer.') }}
+                            </small>
+                        </p>
+                    </td>
+                    <td style="padding-right: 0;">
+                        <div class="pull-right">
+                            <button id="update" type="button" class="btn btn-default">
+                                <span class="fa fa-refresh fa-fw"></span>
+                                <span>{{ lang._('Refresh') }}</span>
+                            </button>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+    </div>
     <div class="content-box-main">
         <div class="table-responsive">
-            <div  class="col-sm-12">
-                <div class="table-responsive">
-                    <table id="grid-routes" class="table table-condensed table-hover table-striped table-responsive">
-                        <thead>
-                        <tr>
-                            <th data-column-id="proto" data-type="string" >{{ lang._('Proto') }}</th>
-                            <th data-column-id="destination" data-type="string">{{ lang._('Destination') }}</th>
-                            <th data-column-id="gateway" data-type="string">{{ lang._('Gateway') }}</th>
-                            <th data-column-id="flags" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Flags') }}</th>
-                            <th data-column-id="use" data-type="numeric" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Use') }}</th>
-                            <th data-column-id="mtu" data-type="numeric" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('MTU') }}</th>
-                            <th data-column-id="netif" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Netif') }}</th>
-                            <th data-column-id="intf_description" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Netif (name)') }}</th>
-                            <th data-column-id="expire" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Expire') }}</th>
-                            <th data-column-id="commands" data-searchable="false" data-width="2em" data-formatter="commands" data-sortable="false">{{ lang._('Action') }}</th>
-                        </tr>
-                        </thead>
-                        <tbody>
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-            <div  class="col-sm-12">
-                <div class="row">
-                    <table class="table">
-                        <tr>
-                            <td>
-                                <input type="checkbox" id="resolve" name="resolve" value="yes">
-                            </td>
-                            <td>
-                                <strong><?=gettext("Name resolution");?></strong>
-                                <p class="text-muted">
-                                    <small>
-                                        {{ lang._('Enable this to attempt to resolve names when displaying the tables. By enabling name resolution, the query may take longer.') }}
-                                    </small>
-                                </p>
-                            </td>
-                            <td>
-                                <div class="pull-right">
-                                    <button id="update" type="button" class="btn btn-default">
-                                        <span class="fa fa-refresh fa-fw"></span>
-                                        <span>{{ lang._('Refresh') }}</span>
-                                    </button>
-                                </div>
-                            </td>
-                        </tr>
-                    </table>
-                </div>
-            </div>
+            <table id="grid-routes" class="table table-condensed table-hover table-striped table-responsive">
+                <thead>
+                <tr>
+                    <th data-column-id="proto" data-type="string" >{{ lang._('Proto') }}</th>
+                    <th data-column-id="destination" data-type="string">{{ lang._('Destination') }}</th>
+                    <th data-column-id="gateway" data-type="string">{{ lang._('Gateway') }}</th>
+                    <th data-column-id="flags" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Flags') }}</th>
+                    <th data-column-id="use" data-type="numeric" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Use') }}</th>
+                    <th data-column-id="mtu" data-type="numeric" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('MTU') }}</th>
+                    <th data-column-id="netif" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Netif') }}</th>
+                    <th data-column-id="intf_description" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Netif (name)') }}</th>
+                    <th data-column-id="expire" data-type="string" data-css-class="hidden-xs hidden-sm" data-header-css-class="hidden-xs hidden-sm">{{ lang._('Expire') }}</th>
+                    <th data-column-id="commands" data-searchable="false" data-width="2em" data-formatter="commands" data-sortable="false">{{ lang._('Action') }}</th>
+                </tr>
+                </thead>
+                <tbody>
+                </tbody>
+            </table>
         </div>
     </div>
 </div>

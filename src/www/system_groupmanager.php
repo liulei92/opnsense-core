@@ -252,7 +252,7 @@ $( document ).ready(function() {
             <input type="hidden" id="act" name="act" value="" />
             <input type="hidden" id="groupid" name="groupid" value="<?=(isset($id) ? $id : '');?>" />
             <input type="hidden" id="privid" name="privid" value="" />
-            <table class="table table-striped opnsense_standard_table_form">
+            <table class="table opnsense_standard_table_form">
               <tr>
                 <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Defined by");?></td>
                 <td>
@@ -385,20 +385,28 @@ $( document ).ready(function() {
               <tr>
                 <td></td>
                 <td>
-                  <input name="save" id="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
-                  <input type="button" class="btn btn-default" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_groupmanager.php'" />
+                    <input name="cancel" type="button" class="btn btn-default mr16" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_groupmanager.php'" />
+                    <input name="save" id="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
 <?php
-                  if (isset($id)) :?>
-                  <input name="id" type="hidden" value="<?=htmlspecialchars($id);?>" />
-                  <input name="gid" type="hidden" value="<?=htmlspecialchars($pconfig['gid']);?>" />
-<?php
-                  endif; ?>
+                    if (isset($id)) :?>
+                    <input name="id" type="hidden" value="<?=htmlspecialchars($id);?>" />
+                    <input name="gid" type="hidden" value="<?=htmlspecialchars($pconfig['gid']);?>" />
+    <?php
+                    endif; ?>
                 </td>
               </tr>
             </table>
           </form>
 <?php
           else :?>
+          <div class="row mb8">
+            <div class="col-sm-12 fz0">
+                <a href="system_groupmanager.php?act=new" class="btn btn-primary mr16" ghost data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                    <i class="fa fa-plus fa-fw"></i>
+                    <?= html_safe(gettext('Add')) ?>
+                </a>
+            </div>
+          </div>
           <form method="post" name="iform2" id="iform2">
             <input type="hidden" id="act" name="act" value="" />
             <input type="hidden" id="groupid" name="groupid" value="<?=(isset($id) ? $id : "");?>" />
@@ -409,11 +417,7 @@ $( document ).ready(function() {
                   <th><?=gettext("Group name");?></th>
                   <th><?=gettext("Member Count");?></th>
                   <th><?=gettext("Description");?></th>
-                  <th class="text-nowrap">
-                     <a href="system_groupmanager.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
-                       <i class="fa fa-plus fa-fw"></i>
-                    </a>
-                  </th>
+                  <th class="text-nowrap"><?=gettext("Commands"); ?></th>
                 </tr>
               </thead>
               <tbody>

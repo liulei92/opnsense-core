@@ -51,16 +51,27 @@
 
 <tr id="row_{{ id }}" {% if advanced|default(false)=='true' %} data-advanced="true"{% endif %}>
     <td>
-        <div class="control-label" id="control_label_{{ id }}">
+        {% if help|default(false) %}
+            <a id="help_for_{{ id }}" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>
+        {# {% elseif help|default(false) == false %}
+            <i class="fa fa-info-circle text-muted"></i> #}
+        {% endif %}
+        <span title="{{label}}">{{label}}</span>
+        {# <div class="control-label" id="control_label_{{ id }}">
             {% if help|default(false) %}
-                <a id="help_for_{{ id }}" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>
-            {% elseif help|default(false) == false %}
-                <i class="fa fa-info-circle text-muted"></i>
+            <span class="label-help">
             {% endif %}
-            <b>{{label}}</b>
-        </div>
+                {% if help|default(false) %}
+                    <a id="help_for_{{ id }}" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>
+                {% endif %}
+                <span title="{{label}}">{{label}}</span>
+            {% if help|default(false) %}
+            </span>
+            {% endif %}
+        </div> #}
     </td>
     <td>
+        {# <div class="control-input"></div> #}
         {% if type == "text" %}
             <input  type="text"
                     class="form-control {{style|default('')}}"
@@ -79,18 +90,18 @@
                     id="{{ id }}"
                     class="{{style|default('selectpicker')}}"
                     {% if hint|default(false) %}data-hint="{{hint}}"{% endif %}
-                    data-width="{{width|default("334px")}}"
+                    data-width="{{width|default("400px")}}"
                     data-allownew="{{allownew|default("false")}}"
                     data-sortable="{{sortable|default("false")}}"
                     data-live-search="true"
                     {% if separator|default(false) %}data-separator="{{separator}}"{% endif %}
             ></select>
             {% if type == 'select_multiple' %}
-              {% if style|default('selectpicker') != "tokenize" %}<br />{% endif %}
-              <a href="#" class="text-danger" id="clear-options_{{ id }}"><i class="fa fa-times-circle"></i> <small>{{ lang._('Clear All') }}</small></a>
-              {% if style|default('selectpicker') == "tokenize" %}&nbsp;&nbsp;<a href="#" class="text-danger" id="copy-options_{{ id }}"><i class="fa fa-copy"></i> <small>{{ lang._('Copy') }}</small></a>
-              &nbsp;&nbsp;<a href="#" class="text-danger" id="paste-options_{{ id }}" style="display:none"><i class="fa fa-paste"></i> <small>{{ lang._('Paste') }}</small></a>
-              {% endif %}
+            {% if style|default('selectpicker') != "tokenize" %}<br />{% endif %}
+            <a href="#" class="text-danger" id="clear-options_{{ id }}"><i class="fa fa-times-circle"></i> <small>{{ lang._('Clear All') }}</small></a>
+            {% if style|default('selectpicker') == "tokenize" %}&nbsp;&nbsp;<a href="#" class="text-danger" id="copy-options_{{ id }}"><i class="fa fa-copy"></i> <small>{{ lang._('Copy') }}</small></a>
+            &nbsp;&nbsp;<a href="#" class="text-danger" id="paste-options_{{ id }}" style="display:none"><i class="fa fa-paste"></i> <small>{{ lang._('Paste') }}</small></a>
+            {% endif %}
             {% endif %}
         {% elseif type == "password" %}
             <input type="password" autocomplete="new-password" class="form-control {{style|default('')}}" size="{{size|default("50")}}" id="{{ id }}" {{ readonly|default(false) ? 'readonly="readonly"' : '' }} >
@@ -104,8 +115,9 @@
                 <small>{{help}}</small>
             </div>
         {% endif %}
-    </td>
-    <td>
         <span class="help-block" id="help_block_{{ id }}"></span>
     </td>
+    {# <td>
+        <span class="help-block" id="help_block_{{ id }}"></span>
+    </td> #}
 </tr>

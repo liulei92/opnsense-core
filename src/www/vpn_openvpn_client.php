@@ -483,8 +483,6 @@ $( document ).ready(function() {
     $("#action").val("move");
     $("#iform2").submit();
   });
-  // watch scroll position and set to last known on page load
-  watchScrollPosition();
 
   $("#mode").change(function(){
       switch($(this).val()) {

@@ -466,8 +466,6 @@ legacy_html_escape_form_data($pconfig);
 <?php include("fbegin.inc"); ?>
 <script>
 $( document ).ready(function() {
-  // watch scroll position and set to last known on page load
-  watchScrollPosition();
   // link delete buttons
   $(".act_delete").click(function(){
     var id = $(this).attr("id").split('_').pop(-1);

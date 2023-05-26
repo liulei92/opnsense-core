@@ -35,7 +35,12 @@
                 del:'/api/syslog/settings/delDestination/',
                 toggle:'/api/syslog/settings/toggleDestination/'
             }
-        );
+        ).on("loaded.rs.jquery.bootgrid", function(e) {
+            // 移动extraActions操作到 actions
+            $("#extraActions").detach().prependTo('#grid-destinations-header > .row > .actionBar');
+            // fade contentbox，从而忽略prependTo的闪烁现象
+            $(".content-box").fadeIn();
+        });
         $('a[data-toggle="tab"]').on('shown.bs.tab', function (e) {
             if (e.target.id === 'statistics') {
                 $("#grid-statistics").UIBootgrid({
@@ -67,8 +72,11 @@
     <li class="active"><a data-toggle="tab" id="destinations" href="#tab_destinations">{{ lang._('Destinations') }}</a></li>
     <li><a data-toggle="tab" id="statistics" href="#tab_statistics">{{ lang._('Statistics') }}</a></li>
 </ul>
-<div class="tab-content content-box">
+<div class="tab-content content-box" style="padding-top: 24px;">
     <div id="tab_destinations" class="tab-pane fade in active">
+        <div id="syslogChangeMessage" class="alert alert-info" style="display: none" role="alert">
+            {{ lang._('After changing settings, please remember to apply them with the button below') }}
+        </div>
         <!-- tab page "destinations" -->
         <table id="grid-destinations" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogDestination" data-editAlert="syslogChangeMessage">
             <thead>
@@ -87,8 +95,20 @@
             <tr>
                 <td></td>
                 <td>
-                    <button data-action="add" type="button" class="btn btn-xs btn-primary"><span class="fa fa-fw fa-plus"></span></button>
-                    <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-fw fa-trash-o"></span></button>
+                    <div id="extraActions" class="pull-left fz0">
+                        <button data-action="add" type="button" class="btn btn-primary mr16" ghost><span class="fa fa-fw fa-plus"></span>{{ lang._('Add') }}</button>
+                        <button data-action="deleteSelected" type="button" class="btn btn-primary mr16" ghost><span class="fa fa-fw fa-trash-o"></span>{{ lang._('Delete selected') }}</button>
+
+                        <button
+                            id="reconfigureAct"
+                            class="btn btn-primary min-w80"
+                            data-endpoint='/api/syslog/service/reconfigure'
+                            data-label="{{ lang._('Apply') }}"
+                            data-service-widget="syslog"
+                            data-error-title="{{ lang._('Error reconfiguring syslog') }}"
+                            type="button"
+                        ></button>
+                    </div>
                 </td>
             </tr>
             </tfoot>
@@ -110,20 +130,6 @@
             <tbody>
             </tbody>
         </table>
-    </div>
-    <div class="col-md-12">
-        <div id="syslogChangeMessage" class="alert alert-info" style="display: none" role="alert">
-            {{ lang._('After changing settings, please remember to apply them with the button below') }}
-        </div>
-        <hr/>
-        <button class="btn btn-primary" id="reconfigureAct"
-                data-endpoint='/api/syslog/service/reconfigure'
-                data-label="{{ lang._('Apply') }}"
-                data-service-widget="syslog"
-                data-error-title="{{ lang._('Error reconfiguring syslog') }}"
-                type="button"
-        ></button>
-        <br/><br/>
     </div>
 </div>
 

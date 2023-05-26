@@ -202,9 +202,6 @@ $( document ).ready(function() {
       $(".rule_select").prop("checked", $(this).prop("checked"));
   });
 
-  // watch scroll position and set to last known on page load
-  watchScrollPosition();
-
   // add titles to the fields having long text cut with ellipsis
   $('.mightOverflow').on('mouseenter', function(){
       var $this = $(this);

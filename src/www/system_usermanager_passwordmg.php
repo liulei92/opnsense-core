@@ -193,7 +193,7 @@ $( document ).ready(function() {
           <div class="tab-content content-box col-xs-12 __mb">
             <form method="post" name="iform" id="iform">
               <div class="table-responsive">
-                <table class="table table-striped">
+                <table class="table opnsense_standard_table_form">
                   <tr>
                     <td style="width:22%"><strong><?= gettext('User Settings') ?></strong></td>
                     <td style="width:78%; text-align:right">
@@ -234,9 +234,10 @@ $( document ).ready(function() {
                     </td>
                   </tr>
                   <tr>
-                    <td>&nbsp;</td>
+                    <td style="height: 0"></td>
                     <td>
-                      <input name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
+                        <input name="cancel" type="button" class="btn btn-default mr16" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_usermanager_passwordmg.php'" />
+                        <input name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
                     </td>
                   </tr>
                 </table>
@@ -246,7 +247,7 @@ $( document ).ready(function() {
 <?php if ($user_allow_gen_token):?>
         <div class="tab-content content-box col-xs-12 __mb">
           <div class="table-responsive">
-            <table class="table table-striped">
+            <table class="table opnsense_standard_table_form">
               <tr>
                 <td style="width:22%"><strong><?= gettext('OTP') ?></strong></td>
                 <td style="width:78%; text-align:right">

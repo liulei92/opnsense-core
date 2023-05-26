@@ -792,259 +792,237 @@
         });
     });
 </script>
-<div class="container-fluid">
-    <div class="row">
-        <div class="col-md-12" id="content">
-            <ul class="nav nav-tabs" data-tabs="tabs">
-                <li id="statustab" class="active"><a data-toggle="tab" href="#status">{{ lang._('Status') }} <i id="statustab_progress"></i></a></li>
-                <li id="settingstab"><a data-toggle="tab" href="#settings">{{ lang._('Settings') }} <i id="settingstab_progress"></i></a></li>
-                <li id="changelogtab"><a data-toggle="tab" href="#changelog">{{ lang._('Changelog') }}</a></li>
-                <li id="updatetab"><a data-toggle="tab" href="#updates">{{ lang._('Updates') }} <i id="updatetab_progress"></i></a></li>
-                <li id="plugintab"><a data-toggle="tab" href="#plugins">{{ lang._('Plugins') }}</a></li>
-                <li id="packagestab"><a data-toggle="tab" href="#packages">{{ lang._('Packages') }}</a></li>
-            </ul>
-            <div class="tab-content content-box">
-                <div id="updates" class="tab-pane table-responsive">
-                    <table class="table table-striped table-condensed" id="updatelist" style="display: none;">
-                        <thead>
-                            <tr>
-                              <th style="width:20%">{{ lang._('Package name') }}</th>
-                              <th style="width:20%">{{ lang._('Current version') }}</th>
-                              <th style="width:20%">{{ lang._('New version') }}</th>
-                              <th style="width:20%">{{ lang._('Required action') }}</th>
-                              <th style="width:20%">{{ lang._('Repository') }}</th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                        <tfoot>
-                            <tr>
-                                <td></td>
-                                <td style="white-space:nowrap;vertical-align:middle;">
-                                    <button class="btn btn-info" id="upgrade"><i class="fa fa-check"></i> {{ lang._('Update') }}</button>
-                                    <button class='btn btn-warning' id="upgrade_maj"><i class="fa fa-check"></i> {{ lang._('Upgrade') }}</button>
-                                    <button class="btn btn-default" id="upgrade_cancel"><i class="fa fa-times"></i> {{ lang._('Cancel') }}</button>
-                                </td>
-                                <td colspan="2" style="vertical-align:middle">
-                                    <strong><div id="updatestatus"></div></strong>
-                                </td>
-                                <td></td>
-                            </tr>
-                        </tfoot>
-                    </table>
-                    <div id="update_status_container" class="table-responsive">
-                       <textarea name="output" id="update_status" class="form-control" rows="20" wrap="hard" readonly="readonly" style="max-width:100%; font-family: monospace;"></textarea>
-                      <table class="table table-striped table-condensed">
-                        <tbody>
-                          <tr>
-                            <td>
-                              {{ lang._('Output shown here for diagnostic purposes. There is no general need for manual system intervention.') }}
-                              <a id="update_status_copy">{{ lang._('Click here to copy to clipboard.') }}</a>
+<div class="row">
+    <div class="col-md-12" id="content">
+        <ul class="nav nav-tabs" data-tabs="tabs">
+            <li id="statustab" class="active"><a data-toggle="tab" href="#status">{{ lang._('Status') }} <i id="statustab_progress"></i></a></li>
+            <li id="settingstab"><a data-toggle="tab" href="#settings">{{ lang._('Settings') }} <i id="settingstab_progress"></i></a></li>
+            <li id="changelogtab"><a data-toggle="tab" href="#changelog">{{ lang._('Changelog') }}</a></li>
+            <li id="updatetab"><a data-toggle="tab" href="#updates">{{ lang._('Updates') }} <i id="updatetab_progress"></i></a></li>
+            <li id="plugintab"><a data-toggle="tab" href="#plugins">{{ lang._('Plugins') }}</a></li>
+            <li id="packagestab"><a data-toggle="tab" href="#packages">{{ lang._('Packages') }}</a></li>
+        </ul>
+        <div class="tab-content content-box" style="padding-top: 24px;">
+            <div id="updates" class="tab-pane table-responsive">
+                <table class="table table-striped table-condensed" id="updatelist" style="display: none;">
+                    <thead>
+                        <tr>
+                            <th style="width:20%">{{ lang._('Package name') }}</th>
+                            <th style="width:20%">{{ lang._('Current version') }}</th>
+                            <th style="width:20%">{{ lang._('New version') }}</th>
+                            <th style="width:20%">{{ lang._('Required action') }}</th>
+                            <th style="width:20%">{{ lang._('Repository') }}</th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                    <tfoot>
+                        <tr>
+                            <td></td>
+                            <td style="white-space:nowrap;vertical-align:middle;">
+                                <button class="btn btn-info" id="upgrade"><i class="fa fa-check"></i> {{ lang._('Update') }}</button>
+                                <button class='btn btn-warning' id="upgrade_maj"><i class="fa fa-check"></i> {{ lang._('Upgrade') }}</button>
+                                <button class="btn btn-default" id="upgrade_cancel"><i class="fa fa-times"></i> {{ lang._('Cancel') }}</button>
                             </td>
-                          </tr>
-                        </tbody>
-                      </table>
-                    </div>
-                </div>
-                <div id="status" class="tab-pane active table-responsive">
+                            <td colspan="2" style="vertical-align:middle">
+                                <strong><div id="updatestatus"></div></strong>
+                            </td>
+                            <td></td>
+                        </tr>
+                    </tfoot>
+                </table>
+                <div id="update_status_container" class="table-responsive">
+                    <textarea name="output" id="update_status" class="form-control" rows="20" wrap="hard" readonly="readonly" style="max-width:100%; font-family: monospace;"></textarea>
                     <table class="table table-striped table-condensed">
-                        <tbody>
-                            <tr>
-                                <td style="width: 150px;">{{ lang._('Type') }}</td>
-                                <td id="product_id"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;">{{ lang._('Version') }}</td>
-                                <td id="product_version"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;">{{ lang._('Architecture') }}</td>
-                                <td id="product_arch"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;">{{ lang._('Commit') }}</td>
-                                <td id="product_hash"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;">{{ lang._('Mirror') }}</td>
-                                <td id="product_mirror"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;">{{ lang._('Repositories') }}</td>
-                                <td id="product_repos"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;">{{ lang._('Updated on') }}</td>
-                                <td id="product_time"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;">{{ lang._('Checked on') }}</td>
-                                <td id="product_time_check"></td>
-                                <td></td>
-                            </tr>
-                            <tr style='display:none'>
-                                <td style="width: 150px;">{{ lang._('Licensed until') }}</td>
-                                <td id="product_license_valid_to"></td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;"></td>
-                                <td style="min-width: 500px;">
-                                    <button class="btn btn-primary" id="checkupdate"><i class="fa fa-refresh"></i> {{ lang._('Check for updates') }}</button>
-                                    <div class="btn-group dropdown" id="audit_actions" style="display:none;">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fa fa-lock"></i> {{ lang._('Run an audit') }} <i class="caret"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a id="audit_connection" href="#">{{ lang._('Connectivity') }}</a></li>
-                                            <li><a id="audit_health" href="#">{{ lang._('Health') }}</a></li>
-                                            <li><a id="audit_security" href="#">{{ lang._('Security') }}</a></li>
-                                            <li><a id="audit_upgrade" href="#">{{ lang._('Upgrade') }}</a></li>
-                                        </ul>
-                                    </div>
-                                    <div class="btn-group dropdown" id="plugin_actions" style="display:none;">
-                                        <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
-                                            <i class="fa fa-exclamation-triangle"></i> {{ lang._('Resolve plugin conflicts') }} <i class="caret"></i>
-                                        </button>
-                                        <ul class="dropdown-menu" role="menu">
-                                            <li><a id="plugin_see" href="#">{{ lang._('View and edit local conflicts') }}</a></li>
-                                            <li><a id="plugin_get" href="#">{{ lang._('Run the automatic resolver') }}</a></li>
-                                            <li><a id="plugin_set" href="#">{{ lang._('Reset all local conflicts') }}</a></li>
-                                        </ul>
-                                    </div>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr class="dropdown_helper" style="padding-bottom: 120px;"></tr>
-                        </tbody>
-                    </table>
-                </div>
-                <div id="plugins" class="tab-pane table-responsive">
-                    <table class="table table-striped table-condensed" id="pluginlist">
-                        <thead>
-                            <tr>
-                                <th style="vertical-align:middle"><input type="text" class="input-sm" autocomplete="off" id="plugin_search" placeholder="{{ lang._('Name') }}"></th>
-                                <th style="vertical-align:middle">{{ lang._('Version') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Size') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Tier') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Repository') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Comment') }}</th>
-                                <th style="vertical-align:middle"></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div id="packages" class="tab-pane table-responsive">
-                    <table class="table table-striped table-condensed" id="packageslist">
-                        <thead>
-                            <tr>
-                                <th style="vertical-align:middle"><input type="text" class="input-sm" autocomplete="off" id="package_search" placeholder="{{ lang._('Name') }}"></th>
-                                <th style="vertical-align:middle">{{ lang._('Version') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Size') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Repository') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('License') }}</th>
-                                <th style="vertical-align:middle">{{ lang._('Comment') }}</th>
-                                <th style="vertical-align:middle"></th>
-                            </tr>
-                        </thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div id="changelog" class="tab-pane table-responsive">
-                    <table class="table table-striped table-condensed" id="changeloglist">
-                        <thead></thead>
-                        <tbody></tbody>
-                    </table>
-                </div>
-                <div id="settings" class="tab-pane table-responsive">
-                    <table class="table table-striped table-condensed">
-                        <tbody>
-                            <tr>
-                                <td style="text-align:left"><i class="fa fa-toggle-off text-danger" id="show_advanced_firmware"></i></a> <small>{{ lang._('advanced mode') }}</small></td>
-                                <td colspan="2" style="text-align:right">
-                                    <small>{{ lang._('full help') }}</small> <a href="#"><i class="fa fa-toggle-off text-danger" id="show_all_help_firmware"></i></a>
-                                </td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;"><a id="help_for_mirror" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Mirror') }}</td>
-                                <td>
-                                    <select class="selectpicker" id="firmware_mirror"  data-size="5" data-live-search="true">
-                                    </select>
-                                    <div style="display:none;" id="firmware_mirror_custom">
-                                        <input type="text" id="firmware_mirror_value">
-                                    </div>
-                                    <div class="hidden" data-for="help_for_mirror">
-                                        {{ lang._('Select an alternate firmware mirror.') }}
-                                    </div>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr data-advanced="true">
-                                <td><a id="help_for_flavour" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Flavour') }}</td>
-                                <td>
-                                    <select class="selectpicker" id="firmware_flavour">
-                                    </select>
-                                    <div style="display:none;" id="firmware_flavour_custom">
-                                        <input type="text" id="firmware_flavour_value">
-                                    </div>
-                                    <div class="hidden" data-for="help_for_flavour">
-                                        {{ lang._('Select an alternate firmware flavour.') }}
-                                    </div>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td><a id="help_for_type" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Type') }}</td>
-                                <td>
-                                    <select class="selectpicker" id="firmware_type">
-                                    </select>
-                                    <div class="hidden" data-for="help_for_type">
-                                        {{ lang._('Select the release type.') }}
-                                    </div>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;"><a id="help_for_subscription" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Subscription') }}</td>
-                                <td>
-                                    <input type="text" id="firmware_subscription">
-                                    <div class="hidden" data-for="help_for_subscription">
-                                        {{ lang._('Provide subscription key.') }}
-                                    </div>
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td style="width: 150px;"><i class="fa fa-info-circle text-muted"></i> {{ lang._('Usage') }}</td>
-                                <td>
-                                    {{ lang._('In order to apply these settings a firmware update must be performed after save, which can include a reboot of the system.') }}
-                                </td>
-                                <td></td>
-                            </tr>
-                            <tr>
-                                <td></td>
-                                <td>
-                                    <button class="btn btn-primary" id="change_mirror" type="button"><i class="fa fa-floppy-o"></i> {{ lang._('Save') }}</button>
-                                    <button class="btn btn-default" id="reset_mirror" type="button"><i class="fa fa-times"></i> {{ lang._('Cancel') }}</button>
-                                </td>
-                                <td></td>
-                            </tr>
-                        </tbody>
+                    <tbody>
+                        <tr>
+                        <td>
+                            {{ lang._('Output shown here for diagnostic purposes. There is no general need for manual system intervention.') }}
+                            <a id="update_status_copy">{{ lang._('Click here to copy to clipboard.') }}</a>
+                        </td>
+                        </tr>
+                    </tbody>
                     </table>
                 </div>
             </div>
-        </div>
-    </div>
-    <div class="row">
-        <div class="col-md-12">
-            &nbsp;
+            <div id="status" class="tab-pane active table-responsive">
+                <table class="table table-condensed form-table opnsense_standard_table_form">
+                    <tbody>
+                        <tr>
+                            <td style="width: 22%;">{{ lang._('Type') }}</td>
+                            <td id="product_id" style="width:78%"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ lang._('Version') }}</td>
+                            <td id="product_version"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ lang._('Architecture') }}</td>
+                            <td id="product_arch"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ lang._('Commit') }}</td>
+                            <td id="product_hash"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ lang._('Mirror') }}</td>
+                            <td id="product_mirror"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ lang._('Repositories') }}</td>
+                            <td id="product_repos"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ lang._('Updated on') }}</td>
+                            <td id="product_time"></td>
+                        </tr>
+                        <tr>
+                            <td>{{ lang._('Checked on') }}</td>
+                            <td id="product_time_check"></td>
+                        </tr>
+                        <tr style='display:none'>
+                            <td>{{ lang._('Licensed until') }}</td>
+                            <td id="product_license_valid_to"></td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td style="min-width: 500px;">
+                                <button class="btn btn-primary" id="checkupdate"><i class="fa fa-refresh"></i> {{ lang._('Check for updates') }}</button>
+                                <div class="btn-group dropdown" id="audit_actions" style="display:none;">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-lock"></i> {{ lang._('Run an audit') }} <i class="caret"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a id="audit_connection" href="#">{{ lang._('Connectivity') }}</a></li>
+                                        <li><a id="audit_health" href="#">{{ lang._('Health') }}</a></li>
+                                        <li><a id="audit_security" href="#">{{ lang._('Security') }}</a></li>
+                                        <li><a id="audit_upgrade" href="#">{{ lang._('Upgrade') }}</a></li>
+                                    </ul>
+                                </div>
+                                <div class="btn-group dropdown" id="plugin_actions" style="display:none;">
+                                    <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+                                        <i class="fa fa-exclamation-triangle"></i> {{ lang._('Resolve plugin conflicts') }} <i class="caret"></i>
+                                    </button>
+                                    <ul class="dropdown-menu" role="menu">
+                                        <li><a id="plugin_see" href="#">{{ lang._('View and edit local conflicts') }}</a></li>
+                                        <li><a id="plugin_get" href="#">{{ lang._('Run the automatic resolver') }}</a></li>
+                                        <li><a id="plugin_set" href="#">{{ lang._('Reset all local conflicts') }}</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                        <tr class="dropdown_helper" style="padding-bottom: 120px;"></tr>
+                    </tbody>
+                </table>
+            </div>
+            <div id="plugins" class="tab-pane table-responsive">
+                <table class="table table-striped table-condensed" id="pluginlist">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align:middle"><input type="text" class="input-sm" autocomplete="off" id="plugin_search" placeholder="{{ lang._('Name') }}"></th>
+                            <th style="vertical-align:middle">{{ lang._('Version') }}</th>
+                            <th style="vertical-align:middle">{{ lang._('Size') }}</th>
+                            <th style="vertical-align:middle">{{ lang._('Tier') }}</th>
+                            <th style="vertical-align:middle">{{ lang._('Repository') }}</th>
+                            <th style="vertical-align:middle">{{ lang._('Comment') }}</th>
+                            <th style="vertical-align:middle"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div id="packages" class="tab-pane table-responsive">
+                <table class="table table-striped table-condensed" id="packageslist">
+                    <thead>
+                        <tr>
+                            <th style="vertical-align:middle"><input type="text" class="input-sm" autocomplete="off" id="package_search" placeholder="{{ lang._('Name') }}"></th>
+                            <th style="vertical-align:middle">{{ lang._('Version') }}</th>
+                            <th style="vertical-align:middle">{{ lang._('Size') }}</th>
+                            <th style="vertical-align:middle">{{ lang._('Repository') }}</th>
+                            <th style="vertical-align:middle">{{ lang._('License') }}</th>
+                            <th style="vertical-align:middle">{{ lang._('Comment') }}</th>
+                            <th style="vertical-align:middle"></th>
+                        </tr>
+                    </thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div id="changelog" class="tab-pane table-responsive">
+                <table class="table table-striped table-condensed" id="changeloglist">
+                    <thead></thead>
+                    <tbody></tbody>
+                </table>
+            </div>
+            <div id="settings" class="tab-pane table-responsive">
+                <table class="table table-condensed form-table opnsense_standard_table_form">
+                    <colgroup>
+                        <col style="width:22%"/>
+                        <col/>
+                    </colgroup>
+                    <tbody>
+                        <tr>
+                            <td colspan="2" style="text-align:left"><i class="fa fa-toggle-off text-danger" id="show_advanced_firmware"></i></a> <small>{{ lang._('advanced mode') }}</small></td>
+                        </tr>
+                        <tr>
+                            <td><a id="help_for_mirror" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>{{ lang._('Mirror') }}</td>
+                            <td>
+                                <select class="selectpicker" id="firmware_mirror"  data-size="5" data-live-search="true">
+                                </select>
+                                <div style="display:none;" id="firmware_mirror_custom">
+                                    <input type="text" id="firmware_mirror_value">
+                                </div>
+                                <div class="hidden" data-for="help_for_mirror">
+                                    {{ lang._('Select an alternate firmware mirror.') }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr data-advanced="true">
+                            <td><a id="help_for_flavour" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Flavour') }}</td>
+                            <td>
+                                <select class="selectpicker" id="firmware_flavour">
+                                </select>
+                                <div style="display:none;" id="firmware_flavour_custom">
+                                    <input type="text" id="firmware_flavour_value">
+                                </div>
+                                <div class="hidden" data-for="help_for_flavour">
+                                    {{ lang._('Select an alternate firmware flavour.') }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a id="help_for_type" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Type') }}</td>
+                            <td>
+                                <select class="selectpicker" id="firmware_type">
+                                </select>
+                                <div class="hidden" data-for="help_for_type">
+                                    {{ lang._('Select the release type.') }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><a id="help_for_subscription" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> {{ lang._('Subscription') }}</td>
+                            <td>
+                                <input type="text" id="firmware_subscription">
+                                <div class="hidden" data-for="help_for_subscription">
+                                    {{ lang._('Provide subscription key.') }}
+                                </div>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td><i class="fa fa-info-circle text-muted"></i> {{ lang._('Usage') }}</td>
+                            <td>
+                                {{ lang._('In order to apply these settings a firmware update must be performed after save, which can include a reboot of the system.') }}
+                            </td>
+                        </tr>
+                        <tr>
+                            <td></td>
+                            <td>
+                                <button id="reset_mirror" type="button" name="cancel" class="btn btn-default mr16">{{ lang._('Cancel') }}</button>
+                                <button id="change_mirror" type="button" name="save" class="btn btn-primary">{{ lang._('Save') }}</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
         </div>
     </div>
 </div>

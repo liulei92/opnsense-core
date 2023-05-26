@@ -313,9 +313,9 @@ $( document ).ready(function() {
     $("#encryptconf").change(function(event){
         event.preventDefault();
         if ($("#encryptconf").prop('checked')) {
-            $("#encrypt_opts").removeClass("hidden");
+            $(".encrypt_opts").removeClass("hidden");
         } else {
-            $("#encrypt_opts").addClass("hidden");
+            $(".encrypt_opts").addClass("hidden");
         }
     });
 
@@ -341,84 +341,95 @@ $( document ).ready(function() {
       <form method="post" enctype="multipart/form-data">
         <section class="col-xs-12">
           <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped">
+            <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
                 <tr>
-                  <td><strong><?= gettext('Download') ?></strong></td>
+                  <td colspan="2" ><strong><?= gettext('Download') ?></strong></td>
                 </tr>
                 <tr>
-                  <td>
-                    <input name="donotbackuprrd" type="checkbox" id="dotnotbackuprrd" checked="checked" />
-                    <?=gettext("Do not backup RRD data."); ?><br/>
-                    <input name="encrypt" type="checkbox" id="encryptconf" />
-                    <?=gettext("Encrypt this configuration file."); ?><br/>
-                    <div class="hidden table-responsive __mt" id="encrypt_opts">
-                      <table class="table table-condensed">
-                        <tr>
-                          <td><?= gettext('Password') ?></td>
-                          <td><input name="encrypt_password" type="password" autocomplete="new-password"/></td>
-                        </tr>
-                        <tr>
-                          <td><?= gettext('Confirmation') ?></td>
-                          <td><input name="encrypt_passconf" type="password" autocomplete="new-password"/> </td>
-                        </tr>
-                      </table>
-                    </div>
-                  </td>
+                    <td></td>
+                    <td>
+                        <input name="donotbackuprrd" type="checkbox" id="dotnotbackuprrd" checked="checked" />
+                        <?=gettext("Do not backup RRD data."); ?>
+                    </td>
                 </tr>
                 <tr>
-                  <td>
-                    <input name="download" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Download configuration')) ?>" />
-                  </td>
+                    <td></td>
+                    <td>
+                        <input name="encrypt" type="checkbox" id="encryptconf" />
+                        <?=gettext("Encrypt this configuration file."); ?>
+                    </td>
+                </tr>
+                <tr class="encrypt_opts hidden">
+                    <td><?= gettext('Password') ?></td>
+                    <td><input name="encrypt_password" type="password" autocomplete="new-password"/></td>
+                </tr>
+                <tr class="encrypt_opts hidden">
+                    <td><?= gettext('Confirmation') ?></td>
+                    <td><input name="encrypt_passconf" type="password" autocomplete="new-password"/> </td>
                 </tr>
                 <tr>
-                  <td>
-                    <?=gettext("Click this button to download the system configuration in XML format."); ?>
-                  </td>
+                    <td></td>
+                    <td>
+                        <input name="download" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Download configuration')) ?>" />
+                        <?=gettext("Click this button to download the system configuration in XML format."); ?>
+                    </td>
                 </tr>
             </table>
           </div>
           <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped">
+            <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
                 <tr>
-                  <td><strong><?= gettext('Restore') ?></strong></td>
+                    <td colspan="2"><strong><?= gettext('Restore') ?></strong></td>
                 </tr>
                 <tr>
-                  <td>
-                    <?=gettext("Restore area:"); ?>
-                    <div>
-                      <select name="restorearea" id="restorearea" class="selectpicker">
-                        <option value=""><?=gettext("ALL");?></option>
-<?php
-                      foreach($areas as $area => $areaname):?>
-                        <option value="<?=$area;?>"><?=$areaname;?></option>
-<?php
-                      endforeach;?>
-                      </select>
-                    </div>
-                    <input name="conffile" type="file" id="conffile" /><br/>
-                    <input name="rebootafterrestore" type="checkbox" id="rebootafterrestore" checked="checked" />
-                    <?=gettext("Reboot after a successful restore."); ?><br/>
-                    <input name="decrypt" type="checkbox" id="decryptconf"/>
-                    <?=gettext("Configuration file is encrypted."); ?>
-                    <div class="hidden table-responsive __mt" id="decrypt_opts">
-                      <table class="table table-condensed">
-                        <tr>
-                          <td><?= gettext('Password') ?></td>
-                          <td><input name="decrypt_password" type="password" autocomplete="new-password"/></td>
-                        </tr>
-                      </table>
-                    </div>
-                  </td>
+                    <td><?=gettext("Restore area:"); ?></td>
+                    <td>
+                        <select name="restorearea" id="restorearea" class="selectpicker">
+                            <option value=""><?=gettext("ALL");?></option>
+    <?php
+                        foreach($areas as $area => $areaname):?>
+                            <option value="<?=$area;?>"><?=$areaname;?></option>
+    <?php
+                        endforeach;?>
+                        </select>
+                    </td>
                 </tr>
                 <tr>
-                  <td>
-                    <input name="restore" type="submit" class="btn btn-primary" id="restore" value="<?= html_safe(gettext('Restore configuration')) ?>" />
-                  </td>
+                    <td></td>
+                    <td><input name="conffile" type="file" id="conffile" /></td>
                 </tr>
                 <tr>
-                  <td>
-                    <?=gettext("Open a configuration XML file and click the button below to restore the configuration."); ?><br/>
-                  </td>
+                    <td></td>
+                    <td>
+                        <input name="rebootafterrestore" type="checkbox" id="rebootafterrestore" checked="checked" />
+                        <?=gettext("Reboot after a successful restore."); ?>
+                    </td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input name="decrypt" type="checkbox" id="decryptconf"/>
+                        <?=gettext("Configuration file is encrypted."); ?>
+                    </td>
+                </tr>
+                <tr id="decrypt_opts" class="hidden">
+                    <td><?= gettext('Password') ?></td>
+                    <td><input name="decrypt_password" type="password" autocomplete="new-password"/></td>
+                </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <input name="restore" type="submit" class="btn btn-primary" id="restore" value="<?= html_safe(gettext('Restore configuration')) ?>" />
+                        <?=gettext("Open a configuration XML file and click the button below to restore the configuration."); ?>
+                    </td>
                 </tr>
             </table>
           </div>
@@ -426,57 +437,61 @@ $( document ).ready(function() {
 <?php
           foreach ($backupFactory->listProviders() as $providerId => $provider):?>
           <div class="content-box tab-content table-responsive __mb">
-            <table class="table table-striped opnsense_standard_table_form">
-                    <tr>
-                        <td colspan="2"><strong><?= $provider['handle']->getName() ?></strong></td>
-                    </tr>
+            <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
+                <tr>
+                    <td colspan="2"><strong><?= $provider['handle']->getName() ?></strong></td>
+                </tr>
 <?php
                 foreach ($provider['handle']->getConfigurationFields() as $field):
                     $fieldId = $providerId . "_" .$field['name'];?>
-                    <tr>
-                        <td style="width:22%">
+                <tr>
+                    <td style="width:22%">
 <?php if (!empty($field['help'])): ?>
-                            <a id="help_for_<?=$fieldId;?>" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>
+                        <a id="help_for_<?=$fieldId;?>" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a>
 <?php else: ?>
-                            <i class="fa fa-info-circle text-muted"></i>
+                        <i class="fa fa-info-circle text-muted"></i>
 <?php endif ?>
-                           <?=$field['label'];?>
-                        </td>
-                        <td style="width:78%">
+                        <?=$field['label'];?>
+                    </td>
+                    <td style="width:78%">
 <?php if ($field['type'] == 'checkbox'): ?>
-                        <input name="<?=$fieldId;?>" type="checkbox" <?=!empty($pconfig[$fieldId]) ? "checked" : "";?> >
+                    <input name="<?=$fieldId;?>" type="checkbox" <?=!empty($pconfig[$fieldId]) ? "checked" : "";?> >
 <?php elseif ($field['type'] == 'text'): ?>
-                        <input name="<?=$fieldId;?>" value="<?=$pconfig[$fieldId];?>" type="text">
+                    <input name="<?=$fieldId;?>" value="<?=$pconfig[$fieldId];?>" type="text">
 <?php elseif ($field['type'] == 'file'): ?>
-                        <input name="<?=$fieldId;?>" type="file">
+                    <input name="<?=$fieldId;?>" type="file">
 <?php elseif ($field['type'] == 'password'):?>
-                        <input name="<?=$fieldId;?>" type="password" autocomplete="new-password" value="<?=$pconfig[$fieldId];?>" />
+                    <input name="<?=$fieldId;?>" type="password" autocomplete="new-password" value="<?=$pconfig[$fieldId];?>" />
 <?php elseif ($field['type'] == 'textarea'): ?>
-                        <textarea name="<?=$fieldId;?>" rows="10"><?=$pconfig[$fieldId];?></textarea>
+                    <textarea name="<?=$fieldId;?>" rows="10"><?=$pconfig[$fieldId];?></textarea>
 <?php elseif ($field['type'] == 'passwordarea'): ?>
-                        <div id="show-<?=$fieldId;?>-btn">
-                          <button onclick="event.preventDefault();show_value('<?= html_safe($fieldId) ?>');" class="btn btn-default"><?= html_safe(gettext('Click to edit')) ?></button>
-                        </div>
-                        <div id="show-<?=$fieldId;?>-val" style="display:none">
-                          <textarea name="<?=$fieldId;?>" rows="10"><?=$pconfig[$fieldId];?></textarea>
-                        </div>
+                    <div id="show-<?=$fieldId;?>-btn">
+                        <button onclick="event.preventDefault();show_value('<?= html_safe($fieldId) ?>');" class="btn btn-default"><?= html_safe(gettext('Click to edit')) ?></button>
+                    </div>
+                    <div id="show-<?=$fieldId;?>-val" style="display:none">
+                        <textarea name="<?=$fieldId;?>" rows="10"><?=$pconfig[$fieldId];?></textarea>
+                    </div>
 <?php endif ?>
-                        <div class="hidden" data-for="help_for_<?=$fieldId;?>">
-                            <?=!empty($field['help']) ? $field['help'] : "";?>
-                        </div>
-                        </td>
-                    </tr>
+                    <div class="hidden" data-for="help_for_<?=$fieldId;?>">
+                        <?=!empty($field['help']) ? $field['help'] : "";?>
+                    </div>
+                    </td>
+                </tr>
 <?php
-                endforeach;?>
+            endforeach;?>
 
-                    <tr>
-                        <td></td>
-                        <td>
-                            <button type="submit" name="setup_<?=$providerId;?>" value="yes" class="btn btn-primary">
-                              <?= sprintf(gettext("Setup/Test %s"), $provider['handle']->getName()) ?>
-                            </button>
-                        </td>
-                    </tr>
+                <tr>
+                    <td></td>
+                    <td>
+                        <button type="submit" name="setup_<?=$providerId;?>" value="yes" class="btn btn-primary">
+                            <?= sprintf(gettext("Setup/Test %s"), $provider['handle']->getName()) ?>
+                        </button>
+                    </td>
+                </tr>
             </table>
           </div>
 <?php

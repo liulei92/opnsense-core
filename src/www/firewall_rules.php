@@ -504,9 +504,6 @@ $( document ).ready(function() {
       });
   });
 
-  // watch scroll position and set to last known on page load
-  watchScrollPosition();
-
   // select All
   $("#selectAll").click(function(){
       $(".rule_select:not(:disabled)").prop("checked", $(this).prop("checked"));

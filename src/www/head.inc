@@ -145,10 +145,21 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
       });
 
       // link showhelp class behavior
-      $("a[class='showhelp']").click(function (event) {
-        $("*[data-for='" + $(this).attr('id') + "']").toggleClass("hidden show");
-        event.preventDefault();
+      // $("a[class='showhelp']").click(function (event) {
+      //   $("*[data-for='" + $(this).attr('id') + "']").toggleClass("hidden show");
+      //   event.preventDefault();
+      // });
+      // 不大批量修改源码的情况下：利用js为i.fa增加data-tooltip
+      $("a[class='showhelp']").each(function() {
+        var html = $("*[data-for='" + $(this).attr('id') + "']").detach().html();
+        $(this).attr("href", "javascript: void 0;")
+        $(this).attr("title", html);
+        $(this).tooltip({html: true });
+        $(this).tooltip();
       });
+      // 不大批量修改源码的情况下：利用js移除无用的i标签
+      $("i.fa.text-muted").each(function() { $(this).remove() });
+
 
       // handle all help messages show/hide
       $('[id*="show_all_help"]').click(function(event) {
@@ -190,7 +201,7 @@ $pagetitle .= html_safe(sprintf(' | %s.%s', $config['system']['hostname'], $conf
 
       $(".list-group-item.active").each(function(){
           var navbar_center = ($( window ).height() - $(".collapse.navbar-collapse").height())/2;
-          $('html,aside').scrollTop(($(this).offset().top - navbar_center));
+          $('html aside').scrollTop(($(this).offset().top - navbar_center));
       });
 
       // Create status dialog instance

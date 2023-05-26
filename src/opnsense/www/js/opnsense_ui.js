@@ -28,6 +28,90 @@
  * User interface shared components, requires opnsense.js for supporting functions.
  */
 
+/**
+ * @Date: 2023-05-24 19:15:26
+ * @Author: LeiLiu
+ * @description: 重写BootstrapDialog.confirm,让其支持onshow，onshown，onhide，onhiden事件
+ * @return {*}
+ */
+BootstrapDialog.confirm = function () {
+    var options = {};
+    var defaultOptions = {
+        type: BootstrapDialog.TYPE_PRIMARY,
+        title: null,
+        message: null,
+        closable: false,
+        draggable: false,
+        btnCancelLabel: BootstrapDialog.DEFAULT_TEXTS.CANCEL,
+        btnOKLabel: BootstrapDialog.DEFAULT_TEXTS.OK,
+        btnOKClass: null,
+        callback: null
+    };
+    if (typeof arguments[0] === 'object' && arguments[0].constructor === {}.constructor) {
+        options = $.extend(true, defaultOptions, arguments[0]);
+    } else {
+        options = $.extend(true, defaultOptions, {
+            message: arguments[0],
+            closable: false,
+            buttonLabel: BootstrapDialog.DEFAULT_TEXTS.OK,
+            callback: typeof arguments[1] !== 'undefined' ? arguments[1] : null
+        });
+    }
+    if (options.btnOKClass === null) {
+        options.btnOKClass = ['btn', options.type.split('-')[1]].join('-');
+    }
+
+    return new BootstrapDialog({
+        type: options.type,
+        title: options.title,
+        message: options.message,
+        closable: options.closable,
+        draggable: options.draggable,
+        data: {
+            callback: options.callback
+        },
+        buttons: [{
+                label: options.btnCancelLabel,
+                action: function (dialog) {
+                    typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(false);
+                    dialog.close();
+                }
+            }, {
+                label: options.btnOKLabel,
+                cssClass: options.btnOKClass,
+                action: function (dialog) {
+                    typeof dialog.getData('callback') === 'function' && dialog.getData('callback')(true);
+                    dialog.close();
+                }
+            }],
+        onshow: function() {
+            if (!options.title) {
+                setTimeout(() => {
+                    /* 有点闪烁 */
+                    $(`#${$(this)[0].id}`).each(function() {
+                        $(this).find('.modal-dialog').each(function() {
+                            $(this).addClass('modal-sm');
+                        })
+                        $(this).find('.modal-header').each(function() {
+                            $(this).hide();
+                        });
+                    });
+                }, 180);
+            }
+            options.onshow && options.onshow(this);
+        },
+        onshown: function() {
+            options.onshown && options.onshown(this);
+        },
+        onhide: function() {
+            options.onhide && options.onhide(this);
+        },
+        onhiden: function() {
+            options.onhiden && options.onhiden(this);
+        },
+    }).open();
+}
+
  /**
   * format bytes
   * @param bytes number of bytes to format
@@ -377,29 +461,39 @@ function addMultiSelectClearUI() {
  */
 function initFormHelpUI() {
     // handle help messages show/hide
-    $("a.showhelp").click(function (event) {
-        $("*[data-for='" + $(this).attr('id') + "']").toggleClass("hidden show");
-        event.preventDefault();
+    // $("a.showhelp").click(function (event) {
+    //     $("*[data-for='" + $(this).attr('id') + "']").toggleClass("hidden show");
+    //     event.preventDefault();
+    // });
+    // 不大批量修改源码的情况下：利用js为i.fa增加data-tooltip
+    $("a[class='showhelp']").each(function () {
+        var html = $("*[data-for='" + $(this).attr('id') + "']").detach().html();
+        $(this).attr("href", "javascript: void 0;")
+        $(this).attr("title", html);
+        $(this).tooltip({html: true });
+        $(this).tooltip();
     });
+    // 不大批量修改源码的情况下：利用js移除无用的i标签
+    $("i.fa.text-muted").each(function () { $(this).remove() });
 
     // handle all help messages show/hide
-    let elements = $('[id*="show_all_help"]');
-    elements.click(function(event) {
-        $(this).toggleClass("fa-toggle-on fa-toggle-off");
-        $(this).toggleClass("text-success text-danger");
-        if ($(this).hasClass("fa-toggle-on")) {
-            if (window.sessionStorage) {
-                sessionStorage.setItem('all_help_preset', 1);
-            }
-            $('[data-for*="help_for"]').addClass("show").removeClass("hidden");
-        } else {
-            $('[data-for*="help_for"]').addClass("hidden").removeClass("show");
-            if (window.sessionStorage) {
-                sessionStorage.setItem('all_help_preset', 0);
-            }
-        }
-        event.preventDefault();
-    });
+    // let elements = $('[id*="show_all_help"]');
+    // elements.click(function(event) {
+    //     $(this).toggleClass("fa-toggle-on fa-toggle-off");
+    //     $(this).toggleClass("text-success text-danger");
+    //     if ($(this).hasClass("fa-toggle-on")) {
+    //         if (window.sessionStorage) {
+    //             sessionStorage.setItem('all_help_preset', 1);
+    //         }
+    //         $('[data-for*="help_for"]').addClass("show").removeClass("hidden");
+    //     } else {
+    //         $('[data-for*="help_for"]').addClass("hidden").removeClass("show");
+    //         if (window.sessionStorage) {
+    //             sessionStorage.setItem('all_help_preset', 0);
+    //         }
+    //     }
+    //     event.preventDefault();
+    // });
 
     if (window.sessionStorage && sessionStorage.getItem('all_help_preset') === "1") {
         // show all help messages when preset was stored
@@ -514,6 +608,7 @@ function stdDialogConfirm(title, message, accept, decline, callback, type) {
     if (!(type in types)) {
         type = 'warning';
     }
+
     BootstrapDialog.confirm({
         title: title,
         message: message,
@@ -534,8 +629,12 @@ function stdDialogConfirm(title, message, accept, decline, callback, type) {
  */
 function stdDialogRemoveItem(message, callback) {
     stdDialogConfirm(
-        stdDialogRemoveItem.defaults.title,  message, stdDialogRemoveItem.defaults.accept,
-        stdDialogRemoveItem.defaults.decline, callback
+        stdDialogRemoveItem.defaults.title,
+        message,
+        stdDialogRemoveItem.defaults.accept,
+        stdDialogRemoveItem.defaults.decline,
+        callback,
+        'danger'
     );
 }
 
@@ -557,6 +656,7 @@ $.fn.SimpleActionButton = function (params) {
     let this_button = this;
     this.construct = function () {
         let label_content = '<b>' + this_button.data('label') + '</b> <i class="reload_progress">';
+        this_button.attr("title", this_button.data('label')).tooltip();
         this_button.html(label_content);
         this_button.on('click', function () {
             this_button.find('.reload_progress').addClass("fa fa-spinner fa-pulse");

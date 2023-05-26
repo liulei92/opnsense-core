@@ -200,18 +200,19 @@ function handleFormValidation(parent,validationErrors) {
     $( "#"+parent).find("[id]").each(function() {
         if (validationErrors !== undefined && $(this).prop('id') in validationErrors) {
             let message = validationErrors[$(this).prop('id')];
-            $("span[id='help_block_" + $(this).prop('id') + "']").empty();
+            $("*[id*='" + $(this).prop('id') + "']").addClass("has-error");
+            if (message === $("span[id='help_block_" + $(this).prop('id') + "']").text()) return false;
+            $("span[id='help_block_" + $(this).prop('id') + "']").empty().fadeOut();
             if (typeof message === 'object') {
                 for (let i=0 ; i < message.length ; ++i)  {
-                    $("span[id='help_block_" + $(this).prop('id') + "']").append($("<div>").text(message[i]));
+                    $("span[id='help_block_" + $(this).prop('id') + "']").append($("<div>").text(message[i])).fadeIn();
                 }
             } else {
-                $("span[id='help_block_" + $(this).prop('id') + "']").text(message);
+                $("span[id='help_block_" + $(this).prop('id') + "']").text(message).fadeIn();
             }
-            $("*[id*='" + $(this).prop('id') + "']").addClass("has-error");
         } else {
             $("*[id*='" + $(this).prop('id') + "']").removeClass("has-error");
-            $("span[id='help_block_" + $(this).prop('id') + "']").empty();
+            $("span[id='help_block_" + $(this).prop('id') + "']").empty().fadeOut();
         }
     });
 }
@@ -295,6 +296,7 @@ function watchScrollPosition() {
         // move to last known position on page load
         $(document).ready(function() {
             var scrollpos = sessionStorage.getItem('scrollpos');
+            console.log(scrollpos);
             if (scrollpos != null) {
                 if (scrollpos.split('|')[0] === current_location()) {
                     $window.scrollTop(scrollpos.split('|')[1]);

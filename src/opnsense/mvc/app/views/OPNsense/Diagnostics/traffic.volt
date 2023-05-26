@@ -543,7 +543,7 @@ POSSIBILITY OF SUCH DAMAGE.
         </div>
     </div>
 </ul>
-<div class="tab-content content-box">
+<div class="tab-content content-box" style="padding-top: 24px;">
     <div id="graph" class="tab-pane fade in active">
         <div class="table-responsive">
             <div class="row">

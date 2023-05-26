@@ -83,6 +83,59 @@ $weightVars: (
   }
 }
 
+$pxVars: (6,8,10,12,16,20,24,30,32,40,44,48);
+@each $item in $pxVars {
+  // $i: index($pxVars, $item); //获取下标
+  // @include icon-nav(map-get($item, key), map-get($item, value));
+  .p#{$item} {
+    padding: #{$item}px;
+  }
+  .pt#{$item} {
+    padding-top: #{$item}px;
+  }
+  .pb#{$item} {
+    padding-bottom: #{$item}px;
+  }
+  .pl#{$item} {
+    padding-left: #{$item}px;
+  }
+  .pr#{$item} {
+    padding-right: #{$item}px;
+  }
+  .m#{$item} {
+    margin: #{$item}px;
+  }
+  .mt#{$item} {
+    margin-top: #{$item}px;
+  }
+  .mr#{$item} {
+    margin-right: #{$item}px;
+  }
+  .mb#{$item} {
+    margin-bottom: #{$item}px;
+  }
+  .ml#{$item} {
+    margin-left: #{$item}px;
+  }
+}
+
+$wpxVars: (80, 200, 240, 400, 940);
+@each $item in $wpxVars {
+  .w#{$item} {
+    width: #{$item}px;
+  }
+  .min-w#{$item} {
+    min-width: #{$item}px;
+  }
+}
+
+$fzVars: (0, 12, 14, 16, 18, 20, 24, 32);
+@each $item in $fzVars {
+  .fz#{$item} {
+    font-size: #{$item}px !important;
+  }
+}
+
 @import "_bootstrap.scss";
 
 ::-webkit-scrollbar {
@@ -238,6 +291,28 @@ body {
       height: 100%;
       margin: 0;
       @include clearfix();
+      /* 面包屑 new */
+      .menu-breadcrumbs > {
+        span {
+          height: 24px;
+          font-size: 16px;
+          font-weight: 700;
+          @extend .iflex;
+          &:not(:last-child) {
+            color: map-get($colors, "$text-color2");
+            i {
+              width: 16px;
+              font-size: 16px;
+              font-weight: 500;
+              font-style: normal;
+              text-align: center;
+            }
+          }
+          &:last-child {
+            color: map-get($colors, "$text-color");
+          }
+        }
+      }
       
       & > li {
         height: 100%;
@@ -250,14 +325,21 @@ body {
   
   .page-content-main {
     background-color: #fff;
-    min-height: calc(100% - 48px);
+    min-height: calc(100% - 88px);
     padding-top: 24px;
     padding-bottom: 40px;
+    opacity: 0;
+    -webkit-transition: opacity .15s ease-in;
+    transition: opacity .15s ease-in;
+    &.in {
+      opacity: 1;
+    }
   }
 }
 
 /* 页面侧边菜单栏 */
 #navigation.page-side {
+  background: map-get($colors, '$grey-dark-color');
   // border-right: 1px solid rgba(0, 0, 0, .15);
   height: calc(100vh - map-get($vars, '$layout-header-height')) !important;
   overflow: auto;
@@ -275,8 +357,6 @@ body {
   }
 
   .page-side-nav {
-    background: map-get($colors, '$grey-dark-color');
-
     .panel {
       background-color: transparent;
       box-shadow: none;
@@ -345,6 +425,7 @@ body {
   }
 
   &.col-sidebar-left {
+    background-color: transparent;
     width: 70px;
     overflow: hidden;
 
@@ -362,7 +443,6 @@ body {
         z-index: -1;
       }
     }
-
 
     #mainmenu > div {
       a.list-group-item {
@@ -450,8 +530,8 @@ body {
   width: 100%;
   height: 40px;
   background-color: #fff;
-  position: sticky;
-  bottom: 0;
+  // position: absolute;
+  // bottom: 0;
   font-size: 12px;
   padding: 10px 0;
   z-index: map-get($zindex, footer);
@@ -466,7 +546,6 @@ body {
 /* 其他 */
 .content-box {
   background: #FFF;
-  border: 1px solid map-get($colors, bordergrey);
 
   @extend .clearfix;
 
@@ -1015,3 +1094,100 @@ div[data-for*="help_for"] {
   margin-top: 0px;
   margin-bottom: 0px;
 }
+
+/* bootstrap-css-overwrite start */
+.ellipsis {
+  @include text-overflow();
+}
+.fl {
+  float: left;
+}
+.fr {
+  float: right;
+}
+.btn {
+  &[name="def"],
+  &[name="cancel"],
+  &[name="save"],
+  &[name="save_close"],
+  &[name="submit"],
+  &[name="apply"] {
+    min-width: 80px;
+    float: left;
+  }
+}
+.form-table {
+  border-collapse: separate;
+  border-spacing: 0 20px;
+  & > thead > tr > th,
+  & > thead > tr > td,
+  & > tbody > tr > th,
+  & > tbody > tr > td,
+  & > tfoot > tr > th,
+  & > tfoot > tr > td {
+    border: 0;
+    padding: 0;
+  }
+  & > tbody > tr > th,
+  & > tbody > tr > td {
+    height: 32px; // 高度会根据内容自动撑起
+  }
+  .control-label {
+    padding: 6px 12px 0 10px;
+    min-height: 20px;
+    line-height: 20px;
+    font-weight: 600;
+    color: map-get($colors, '$text-color2');
+    font-size: 14px;
+    .label-help {
+      display: block;
+      width: 100%;
+      overflow: hidden;
+      word-wrap: break-word;
+    }
+  }
+  .control-input {
+    min-height: 32px;
+    input[type=radio], input[type=checkbox] {
+      margin: 9px 0 0;
+    }
+    & + .help-block {
+      min-height: 20px;
+      line-height: 18px;
+      font-size: 12px;
+      display: none;
+    }
+  }
+}
+form {
+  .table {
+    @extend .form-table;
+  }
+}
+.modal-footer .btn {
+  min-width: 80px;
+}
+.bootstrap-dialog {
+  display: flex !important;
+  justify-content: center;
+  align-items: center;
+  .modal-dialog {
+    margin: 0;
+  }
+  &-message {
+    text-align: center;
+  }
+}
+.table {
+  &.table-nobordered {
+    >thead>tr>th,
+    >thead>tr>td,
+    >tbody>tr>th,
+    >tbody>tr>td,
+    >tfoot>tr>th,
+    >tfoot>tr>td {
+      border-top-color: transparent;
+    }
+  }
+}
+/* bootstrap-css-overwrite end */

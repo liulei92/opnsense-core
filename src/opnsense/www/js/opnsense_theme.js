@@ -210,5 +210,9 @@ $(document).ready(function () {
         if (window.localStorage && localStorage.getItem('toggle_sidebar_preset') == 1) {
             opnsense_sidebar_toggle(false);
         }
+
+        $('.page-content-main').each(function () {
+            $(this).addClass('in');
+        })
     }
 });

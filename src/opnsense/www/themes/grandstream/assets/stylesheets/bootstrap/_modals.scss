@@ -54,8 +54,7 @@
   border: 1px solid $modal-content-fallback-border-color; //old browsers fallback (ie8 etc)
   border: 1px solid $modal-content-border-color;
   border-radius: $border-radius-large;
-  @include box-shadow(0 3px 9px rgba(0,0,0,.5));
-  background-clip: padding-box;
+  @include box-shadow(0 3px 6px -4px rgb(0 0 0 / 12%), 0 6px 16px 0 rgb(0 0 0 / 8%), 0 9px 28px 8px rgb(0 0 0 / 5%));
   // Remove focus outline from opened modal
   outline: 0;
 }
@@ -83,13 +82,29 @@
 }
 // Close icon
 .modal-header .close {
-  margin-top: -2px;
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 56px;
+  height: 56px;
+  text-align: center;
+  margin-top: 0;
+  float: none;
+  opacity: 1;
+  &:hover,
+  &:focus {
+    color: $brand-primary;
+    opacity: 1;
+  }
 }
 
 // Title text within header
 .modal-title {
   margin: 0;
   line-height: $modal-title-line-height;
+  font-size: 16px;
+  font-weight: 700;
+  text-align: center;
 }
 
 // Modal body
@@ -101,14 +116,15 @@
 
 // Footer (for actions)
 .modal-footer {
-  padding: $modal-inner-padding;
-  text-align: right; // right align buttons
+  padding: 24px;
+  font-size: 0;
+  text-align: center;
   border-top: 1px solid $modal-footer-border-color;
   @include clearfix(); // clear it in case folks use .pull-* classes on buttons
 
   // Properly space out buttons
   .btn + .btn {
-    margin-left: 5px;
+    margin-left: 16px;
     margin-bottom: 0; // account for input[type="submit"] which gets the bottom margin like all other inputs
   }
   // but override that for button groups
@@ -136,9 +152,6 @@
   .modal-dialog {
     width: $modal-md;
     margin: 52px+30px auto 30px auto;
-  }
-  .modal-content {
-    @include box-shadow(0 5px 15px rgba(0,0,0,.5));
   }
 
   // Modal sizes

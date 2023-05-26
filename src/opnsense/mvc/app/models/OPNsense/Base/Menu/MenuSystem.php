@@ -401,7 +401,7 @@ class MenuSystem
                         $next = null;
                         break;
                     }
-                    $breadcrumbs[] = array('name' => $node->VisibleName);
+                    $breadcrumbs[] = array('name' => $node->VisibleName, 'url' => $node->Url);
                     /* only go as far as the first reachable URL */
                     $next = empty($node->Url) ? $node->Children : null;
                     break;

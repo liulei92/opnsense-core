@@ -126,13 +126,13 @@ include("head.inc");
         <section class="col-xs-12">
           <div class="tab-content content-box col-xs-12 __mb">
             <div class="table-responsive">
-              <table class="table table-striped opnsense_standard_table_form">
+              <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
                 <tr>
-                  <td style="width:22%"><strong><?= gettext('General settings') ?></strong></td>
-                  <td style="width:78%; text-align:right">
-                    <small><?=gettext("full help"); ?> </small>
-                    <i class="fa fa-toggle-off text-danger" style="cursor: pointer;" id="show_all_help_page"></i>
-                  </td>
+                  <td colspan="2"><strong><?= gettext('General settings') ?></strong></td>
                 </tr>
                 <tr>
                   <td><a id="help_for_disablepreempt" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Disable preempt') ?></td>
@@ -199,12 +199,6 @@ include("head.inc");
                     </div>
                   </td>
                 </tr>
-              </table>
-            </div>
-          </div>
-          <div class="tab-content content-box col-xs-12 __mb">
-            <div class="table-responsive">
-              <table class="table table-striped opnsense_standard_table_form">
                 <tr>
                   <td colspan="2">
                     <strong><?= gettext('Configuration Synchronization Settings (XMLRPC Sync)') ?></strong>
@@ -264,17 +258,12 @@ include("head.inc");
                 </tr>
 <?php
                 endforeach;?>
-              </table>
-            </div>
-          </div>
-          <div class="tab-content content-box col-xs-12">
-            <div class="table-responsive">
-              <table class="table table-striped opnsense_standard_table_form">
+
                 <tr>
-                  <td style="width:22%"></td>
+                  <td></td>
                   <td>
-                    <input name="Submit" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Save')) ?>" />
-                    <input type="button" class="btn btn-default" value="<?= html_safe(gettext('Cancel')) ?>" onclick="window.location.href='/system_hasync.php'" />
+                    <input name="cancel" type="button" class="btn btn-default mr16" value="<?= html_safe(gettext('Cancel')) ?>" onclick="window.location.href='/system_hasync.php'" />
+                    <input name="save" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Save')) ?>" />
                   </td>
                 </tr>
               </table>

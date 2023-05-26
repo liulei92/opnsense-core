@@ -193,8 +193,10 @@
                 // fix menu scroll position on page load
                 $(".list-group-item.active").each(function(){
                     var navbar_center = ($( window ).height() - $(".collapse.navbar-collapse").height())/2;
-                    $('html,aside').scrollTop(($(this).offset().top - navbar_center));
+                    $('html aside').scrollTop(($(this).offset().top - navbar_center));
                 });
+
+                hook_stacked_form_tables(".opnsense_standard_table_form");
             });
         </script>
 
@@ -253,12 +255,23 @@
   <main class="page-content col-sm-9 col-sm-push-3 col-lg-10 col-lg-push-2">
       <!-- menu system -->
       {{ partial("layout_partials/base_menu_system") }}
+
       <div class="row">
         <!-- page header -->
         <header class="page-content-head">
           <div class="container-fluid">
             <ul class="list-inline">
-              <li><h1>{{title | default("")}}</h1></li>
+                {# 面包屑跳转 #}
+                <li class="menu-breadcrumbs">
+                    {% for menuBreadcrumb in menuBreadcrumbs | default([]) %}
+                        <span>
+                            {{ menuBreadcrumb['name'] }}
+                            {% if loop.index != loop.length %} <i>></i>
+                            {% endif %}
+                        </span>
+                    {% endfor %}
+                </li>
+              {# <li><h1>{{title | default("")}}</h1></li> #}
               <li class="btn-group-container" id="service_status_container"></li>
             </ul>
           </div>
@@ -327,7 +340,7 @@
         deleteSelectedText: "{{ lang._('Delete selected') }}"
     });
     $.extend(stdDialogRemoveItem.defaults, {
-        title: "{{ lang._('Remove') }}",
+        title: "", // {{ lang._('Remove') }}
         accept: "{{ lang._('Yes') }}",
         decline: "{{ lang._('Cancel') }}"
     });

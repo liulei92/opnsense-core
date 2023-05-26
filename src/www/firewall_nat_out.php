@@ -231,9 +231,6 @@ include("head.inc");
         $(".rule_select:not(:disabled)").prop("checked", $(this).prop("checked"));
     });
 
-    // watch scroll position and set to last known on page load
-    watchScrollPosition();
-
     // our usual zebra striping doesn't respect hidden rows, hook repaint on .opnsense-rules change() and fire initially
     $(".opnsense-rules > tbody > tr").each(function(){
         // save zebra color

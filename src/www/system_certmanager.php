@@ -1105,6 +1105,7 @@ include("head.inc");
             $("#external").addClass("hidden");
             $("#existing").addClass("hidden");
             $("#sign_cert_csr").addClass("hidden");
+            $("#next_button_for_x509_extension_step_sign_csr").addClass("hidden");
             $("#x509_extension_sign_cert_csr").addClass("hidden");
             $('#x509_extension_step_sign_cert_csr').addClass('hidden');
             if ($(this).val() == "import") {
@@ -1259,14 +1260,11 @@ $( document ).ready(function() {
             <input name="id" type="hidden" value="<?=$id;?>" />
 <?php
             endif;?>
-            <table class="table table-striped opnsense_standard_table_form">
-              <tr>
-                <td style="width:22%"></td>
-                <td  style="width:78%; text-align:right">
-                  <small><?=gettext("full help"); ?> </small>
-                  <i class="fa fa-toggle-off text-danger"  style="cursor: pointer;" id="show_all_help_page"></i>
-                </td>
-              </tr>
+            <table class="table opnsense_standard_table_form">
+              <colgroup>
+                <col style="width:22%"/>
+                <col/>
+              </colgroup>
               <tr>
                 <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Method");?></td>
                 <td>
@@ -1289,7 +1287,11 @@ $( document ).ready(function() {
               </tr>
             </table>
             <!-- existing cert -->
-            <table id="import" class="table table-striped opnsense_standard_table_form">
+            <table id="import" class="table opnsense_standard_table_form">
+              <colgroup>
+                <col style="width:22%"/>
+                <col/>
+              </colgroup>
               <thead>
                 <tr>
                   <th colspan="2"><?=gettext("Import Certificate");?></th>
@@ -1297,8 +1299,8 @@ $( document ).ready(function() {
               </thead>
               <tbody>
                 <tr>
-                  <td style="width:22%"><a id="help_for_cert" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Certificate data");?></td>
-                  <td style="width:78%">
+                  <td><a id="help_for_cert" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Certificate data");?></td>
+                  <td>
                     <textarea name="cert" id="cert" cols="65" rows="7"><?=$pconfig['cert'];?></textarea>
                     <div class="hidden" data-for="help_for_cert">
                       <?=gettext("Paste a certificate in X.509 PEM format here.");?>
@@ -1317,7 +1319,11 @@ $( document ).ready(function() {
               </tbody>
             </table>
             <!-- sign_cert_csr -->
-            <table id="sign_cert_csr" class="table table-striped opnsense_standard_table_form">
+            <table id="sign_cert_csr" class="table opnsense_standard_table_form">
+              <colgroup>
+                <col style="width:22%"/>
+                <col/>
+              </colgroup>
               <thead>
                 <tr>
                   <th colspan="2"><?=gettext("Sign CSR");?></th>
@@ -1325,8 +1331,8 @@ $( document ).ready(function() {
               </thead>
               <tbody>
                 <tr>
-                  <td style="width:22%"><?=gettext("Certificate authority");?></td>
-                  <td style="width:78%">
+                  <td><?=gettext("Certificate authority");?></td>
+                  <td>
                     <select name='caref_sign_csr' id='caref_sign_csr'>
   <?php
                     foreach ($a_ca as $ca) :
@@ -1375,16 +1381,20 @@ $( document ).ready(function() {
                     </div>
                   </td>
                 </tr>
-                <tr id="next_button_for_x509_extension_step_sign_csr">
+                <!-- <tr id="next_button_for_x509_extension_step_sign_csr">
                   <td>&nbsp;</td>
                   <td>
                     <a href="#" class="x509_extension_step_sign_csr btn btn-primary"><?=gettext("Next");?></a>
                   </td>
-                </tr>
+                </tr> -->
               </tbody>
             </table>
             <div id="x509_extension_step_sign_cert_csr" class="hidden">
-              <table class="table table-striped opnsense_standard_table_form">
+              <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
                 <thead>
                   <tr>
                     <th colspan="2"><?=gettext("Subject of the certificate");?></th>
@@ -1392,7 +1402,7 @@ $( document ).ready(function() {
                 </thead>
                 <tbody>
                   <tr>
-                    <td style="width:22%"><i class="fa fa-info-circle text-muted"></i> <?=gettext('Subject');?></td>
+                    <td><i class="fa fa-info-circle text-muted"></i> <?=gettext('Subject');?></td>
                     <td id="subject_sign_csr" style="width:78%"></td>
                   </tr>
                   <tr>
@@ -1495,7 +1505,11 @@ $( document ).ready(function() {
               </table>
             </div>
             <!-- internal cert -->
-            <table id="internal" class="table table-striped opnsense_standard_table_form">
+            <table id="internal" class="table opnsense_standard_table_form">
+              <colgroup>
+                <col style="width:22%"/>
+                <col/>
+              </colgroup>
               <thead>
                 <tr>
                   <th colspan="2"><?=gettext("Internal Certificate");?></th>
@@ -1503,8 +1517,8 @@ $( document ).ready(function() {
               </thead>
               <tbody>
               <tr>
-                <td style="width:22%"><?=gettext("Certificate authority");?></td>
-                <td style="width:78%">
+                <td><?=gettext("Certificate authority");?></td>
+                <td>
                   <select name='caref' id='caref'>
 <?php
                   foreach ($a_ca as $ca) :
@@ -1536,14 +1550,14 @@ $( document ).ready(function() {
               </tr>
               <tr>
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Key Type");?></td>
-                  <td style="width:78%">
+                  <td>
                     <select name='keytype' id='keytype' class="selectpicker">
-                  <option value="RSA" <?=$pconfig['keytype'] == "RSA" ? "selected=\"selected\"" : "";?>>
-                    <?=gettext("RSA");?>
-                  </option>
-                  <option value="Elliptic Curve" <?=$pconfig['keytype'] == "Elliptic Curve" ? "selected=\"selected\"" : "";?>>
-                    <?=gettext("Elliptic Curve");?>
-                  </option>
+                        <option value="RSA" <?=$pconfig['keytype'] == "RSA" ? "selected=\"selected\"" : "";?>>
+                            <?=gettext("RSA");?>
+                        </option>
+                        <option value="Elliptic Curve" <?=$pconfig['keytype'] == "Elliptic Curve" ? "selected=\"selected\"" : "";?>>
+                            <?=gettext("Elliptic Curve");?>
+                        </option>
                     </select>
                   </td>
                 </tr>
@@ -1749,7 +1763,11 @@ $( document ).ready(function() {
               </tbody>
             </table>
             <!-- external cert -->
-            <table id="external" class="table table-striped opnsense_standard_table_form">
+            <table id="external" class="table opnsense_standard_table_form">
+              <colgroup>
+                <col style="width:22%"/>
+                <col/>
+              </colgroup>
               <thead>
                 <tr>
                   <td colspan="2"><?=gettext("External Signing Request");?></td>
@@ -1758,14 +1776,14 @@ $( document ).ready(function() {
               <tbody>
                 <tr>
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Key Type");?></td>
-                  <td style="width:78%">
+                  <td>
                     <select name='csr_keytype' id='csr_keytype' class="selectpicker">
-                  <option value="RSA" <?=$pconfig['csr_keytype'] == "RSA" ? "selected=\"selected\"" : "";?>>
-                    <?=gettext("RSA");?>
-                  </option>
-                  <option value="Elliptic Curve" <?=$pconfig['csr_keytype'] == "Elliptic Curve" ? "selected=\"selected\"" : "";?>>
-                    <?=gettext("Elliptic Curve");?>
-                  </option>
+                        <option value="RSA" <?=$pconfig['csr_keytype'] == "RSA" ? "selected=\"selected\"" : "";?>>
+                            <?=gettext("RSA");?>
+                        </option>
+                        <option value="Elliptic Curve" <?=$pconfig['csr_keytype'] == "Elliptic Curve" ? "selected=\"selected\"" : "";?>>
+                            <?=gettext("Elliptic Curve");?>
+                        </option>
                     </select>
                   </td>
                 </tr>
@@ -1897,7 +1915,11 @@ $( document ).ready(function() {
             </tbody>
           </table>
           <!-- choose existing cert -->
-          <table id="existing" class="table table-striped">
+          <table id="existing" class="table opnsense_standard_table_form">
+            <colgroup>
+                <col style="width:22%"/>
+                <col/>
+            </colgroup>
             <thead>
               <tr>
                 <th colspan="2"><?=gettext("Choose an Existing Certificate");?></th>
@@ -1905,8 +1927,8 @@ $( document ).ready(function() {
             </thead>
               <tbody>
               <tr>
-                <td style="width:22%"><i class="fa fa-info-circle text-muted"></i> <?=gettext("Existing Certificates");?></td>
-                <td style="width:78%">
+                <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Existing Certificates");?></td>
+                <td>
                   <select name='certref'>
 <?php
                   foreach ($config['cert'] as $cert) :
@@ -1934,11 +1956,13 @@ $( document ).ready(function() {
               </tbody>
             </table>
             <!-- submit -->
-            <table class="table">
+            <table class="table opnsense_standard_table_form" style="border-spacing: 0;">
               <tr>
-                <td style="width:22%">&nbsp;</td>
-                <td style="width:78%">
-                  <input id="submit" name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
+                <td style="width:22%"></td>
+                <td>
+                    <input name="cancel" type="button" class="btn btn-default mr16" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_certmanager.php'" />
+                    <input id="submit" name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save'));?>" />
+                    <a id="next_button_for_x509_extension_step_sign_csr" href="#" class="x509_extension_step_sign_csr btn btn-primary min-w80 hidden"><?=gettext("Next");?></a>
                 </td>
               </tr>
             </table>
@@ -2036,17 +2060,21 @@ $( document ).ready(function() {
             <input type="hidden" name="id" id="id" value="<?=isset($id) ? $id :"";?>"/>
             <input type="hidden" name="act" id="action" value="<?=$act;?>"/>
           </form>
+          <div class="row mb8">
+            <div class="col-sm-12 fz0">
+                <a href="system_certmanager.php?act=new" class="btn btn-primary mr16" ghost data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                  <i class="fa fa-plus fa-fw"></i>
+                  <?= html_safe(gettext('Add')) ?>
+                </a>
+            </div>
+          </div>
           <table class="table table-striped">
             <thead>
               <tr>
                 <th><?=gettext("Name");?></th>
-                <th><?=gettext("Issuer");?></th>
+                <th width="120"><?=gettext("Issuer");?></th>
                 <th><?=gettext("Distinguished Name");?></th>
-                <th class="text-nowrap">
-                  <a href="system_certmanager.php?act=new" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
-                    <i class="fa fa-plus fa-fw"></i>
-                  </a>
-                </th>
+                <th class="text-nowrap"><?=gettext("Commands"); ?></th>
               </tr>
             </thead>
             <tbody>

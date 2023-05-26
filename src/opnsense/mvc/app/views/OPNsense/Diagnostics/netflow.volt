@@ -49,7 +49,7 @@
             ajaxGet('/api/diagnostics/netflow/cacheStats', {}, function(data, status) {
                 var html = [];
                 // convert to plain Array
-                var data_arr = $.makeArray(data)[0];
+                var data_arr = $.makeArray(data)[0] || {};
                 // sort by flow
                 Object.keys(data_arr).sort().forEach(function (index) {
                     let value = data_arr[index];
@@ -83,12 +83,20 @@
     <li class="active"><a data-toggle="tab" id="capture_tab" href="#capture">{{ lang._('Capture') }}</a></li>
     <li><a data-toggle="tab" id="cache_tab" href="#cache">{{ lang._('Cache') }}</a></li>
 </ul>
-<div class="tab-content content-box">
+<div class="tab-content content-box" style="padding-top: 24px;">
     <div id="capture" class="tab-pane fade in active">
         <!-- tab page capture -->
-        {{ partial("layout_partials/base_form",['fields':captureForm,'id':'frm_CaptureSettings', 'apply_btn_id':'btn_save_capture'])}}
+        {{ partial("layout_partials/base_form",['fields':captureForm,'id':'frm_CaptureSettings', 'apply_btn_id':'btn_save_capture','cancel_url': '/ui/diagnostics/netflow'])}}
     </div>
     <div id="cache" class="tab-pane fade in">
+        <div class="container-fluid mb8">
+            <div class="row">
+                <button id="act_refresh_cache_stats" type="button" class="btn btn-default">
+                    <span>{{ lang._('Refresh') }}</span>
+                    <span class="fa fa-refresh"></span>
+                </button>
+            </div>
+        </div>
         <!-- tab page netflow cache -->
         <table class="table table-striped" id="cache_stats">
           <thead>
@@ -102,16 +110,6 @@
           </thead>
           <tbody>
           </tbody>
-          <tfoot>
-            <tr>
-              <td colspan="5">
-                <button id="act_refresh_cache_stats" type="button" class="btn btn-default">
-                  <span>{{ lang._('Refresh') }}</span>
-                  <span class="fa fa-refresh"></span>
-                </button>
-              </td>
-            </tr>
-          </tfoot>
         </table>
     </div>
 </div>

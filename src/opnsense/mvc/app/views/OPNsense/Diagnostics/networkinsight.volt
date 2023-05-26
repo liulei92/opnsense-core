@@ -658,9 +658,8 @@ POSSIBILITY OF SUCH DAMAGE.
     <li><a data-toggle="tab" id="details_tab" href="#details">{{ lang._('Details') }}</a></li>
     <li><a data-toggle="tab" id="export_tab" href="#export">{{ lang._('Export') }}</a></li>
 </ul>
-<div class="tab-content content-box" style="padding: 10px;">
+<div class="tab-content content-box" style="padding-top: 24px;">
     <div id="info" class="tab-pane fade in">
-      <br/>
       <div class="alert alert-warning" role="alert">
         {{ lang._('Local data collection is not enabled at the moment, please configure netflow first') }}
         <br/>
@@ -812,14 +811,17 @@ POSSIBILITY OF SUCH DAMAGE.
       </table>
     </div>
     <div id="export" class="tab-pane fade in">
-      <br/>
-      <table class="table table-condensed table-striped">
-        <thead>
+      <table class="table form-table opnsense_standard_table_form">
+        <colgroup>
+            <col style="width:22%"/>
+            <col/>
+        </colgroup>
+        {# <thead>
           <tr>
             <th>{{ lang._('Attribute') }}</th>
             <th>{{ lang._('Value') }}</th>
           </tr>
-        </thead>
+        </thead> #}
         <tbody>
           <tr>
             <td>{{ lang._('Collection') }}</td>
@@ -850,7 +852,7 @@ POSSIBILITY OF SUCH DAMAGE.
           <tr>
             <td></td>
             <td>
-              <button id="export_btn" class="btn btn-default btn-xs"><i class="fa fa-cloud-download"></i> {{ lang._('Export')}}</button>
+              <button id="export_btn" name="def" class="btn btn-default"><i class="fa fa-cloud-download"></i> {{ lang._('Export')}}</button>
             </td>
           </tr>
         </tbody>

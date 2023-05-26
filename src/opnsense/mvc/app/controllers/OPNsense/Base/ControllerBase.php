@@ -57,17 +57,19 @@ class ControllerBase extends ControllerRoot
           '/ui/js/jquery.bootgrid.js',
           // Bootstrap type ahead
           '/ui/js/bootstrap3-typeahead.min.js',
+          // bootstrap script
+          '/ui/js/bootstrap.min.js',
+          '/ui/js/bootstrap-select.min.js',
+          // bootstrap dialog
+          '/ui/js/bootstrap-dialog.min.js',
           // OPNsense standard toolkit
           '/ui/js/opnsense.js',
           '/ui/js/opnsense_theme.js',
           '/ui/js/opnsense_ui.js',
           '/ui/js/opnsense_bootgrid_plugin.js',
           '/ui/js/opnsense_status.js',
-          // bootstrap script
-          '/ui/js/bootstrap.min.js',
-          '/ui/js/bootstrap-select.min.js',
-          // bootstrap dialog
-          '/ui/js/bootstrap-dialog.min.js'
+          '/ui/js/opnsense_legacy.js',
+
         ];
     }
 
@@ -88,7 +90,7 @@ class ControllerBase extends ControllerRoot
             // JQuery Tokenize2 (https://zellerda.github.io/Tokenize2/)
             '/css/tokenize2.css',
             // Bootgrid (grid system from http://www.jquery-bootgrid.com/ )
-            '/css/jquery.bootgrid.css'
+            '/css/jquery.bootgrid.css',
         ];
     }
 
@@ -234,7 +236,7 @@ class ControllerBase extends ControllerRoot
         $this->view->menuSystem = $menu->getItems($rewrite_uri);
         /* XXX generating breadcrumbs requires getItems() call */
         $this->view->menuBreadcrumbs = $menu->getBreadcrumbs();
-
+        $this->view->menuBreadcrumbsStr = json_encode($this->view->menuBreadcrumbs);
         // set theme in ui_theme template var, let template handle its defaults (if there is no theme).
         if (
             $cnf->object()->theme->count() > 0 && !empty($cnf->object()->theme) &&

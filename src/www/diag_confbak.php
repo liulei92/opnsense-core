@@ -215,22 +215,23 @@ include("fbegin.inc");
             <input type="hidden" id="time" name="time" value="" />
             <input type="hidden" id="action" name="act" value="" />
             <div class="content-box tab-content table-responsive __mb">
-              <table class="table table-striped">
+              <table class="table">
                 <tbody>
                   <tr>
-                    <td colspan="2"><strong><?= gettext('Backup Count') ?></strong></td>
+                    <td style="width:22%"><strong><?= gettext('Backup Count') ?></strong></td>
+                    <td style="width:78%"></td>
                   </tr>
                   <tr>
+                    <td></td>
                     <td>
                       <input name="backupcount" type="text" size="5" value="<?= html_safe($pconfig['backupcount']) ?>"/>
+                      <?= gettext("Enter the number of older configurations to keep in the local backup cache."); ?>
                     </td>
-                    <td><?= gettext("Enter the number of older configurations to keep in the local backup cache."); ?></td>
                   </tr>
                   <tr>
+                    <td></td>
                     <td>
                       <input name="save" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Save')) ?>"/>
-                    </td>
-                    <td>
                       <?= gettext('Be aware of how much space is consumed by backups before adjusting this value.'); ?>
 <?php if (isset($confvers) && count($confvers) > 0): ?>
                       <?= gettext('Current space used:') . ' ' . exec("/usr/bin/du -sh /conf/backup | /usr/bin/awk '{print $1;}'") ?>
@@ -243,7 +244,7 @@ include("fbegin.inc");
           </form>
 <?php if ($diff): ?>
           <div class="content-box tab-content table-responsive __mb" style="overflow: scroll;">
-            <table class="table table-striped">
+            <table class="table">
               <tbody>
                 <tr>
                   <td colspan="2">
@@ -283,7 +284,7 @@ include("fbegin.inc");
 <?php if (count($confvers)): ?>
           <form method="get">
             <div class="content-box tab-content table-responsive">
-              <table class="table table-striped">
+              <table class="table">
                 <tbody>
                   <tr>
                     <td colspan="2"><strong><?= gettext('History') ?></strong></td>

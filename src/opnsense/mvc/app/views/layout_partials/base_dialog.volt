@@ -43,9 +43,9 @@
 {% set base_dialog_advanced=false %}
 {% for field in base_dialog_fields|default({})%}
     {% for name,element in field %}
-        {% if name=='help' %}
+        {# {% if name=='help' %}
             {% set base_dialog_help=true %}
-        {% endif %}
+        {% endif %} #}
         {% if name=='advanced' %}
             {% set base_dialog_advanced=true %}
         {% endif %}
@@ -57,7 +57,7 @@
 
 <div class="modal fade" id="{{base_dialog_id}}" tabindex="-1" role="dialog" aria-labelledby="{{base_dialog_id}}Label" aria-hidden="true">
     <div class="modal-backdrop fade in"></div>
-    <div class="modal-dialog modal-lg">
+    <div class="modal-dialog {{modal_size|default('modal-lg')}}">
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="{{ lang._('Close') }}"><span aria-hidden="true">&times;</span></button>
@@ -66,19 +66,20 @@
             <div class="modal-body">
                 <form id="frm_{{base_dialog_id}}">
                   <div class="table-responsive">
-                    <table class="table table-striped table-condensed">
+                    <table class="table table-condensed opnsense_standard_table_form">
                         <colgroup>
                             <col class="col-md-3"/>
-                            <col class="col-md-{{ 12-3-msgzone_width|default(5) }}"/>
-                            <col class="col-md-{{ msgzone_width|default(5) }}"/>
+                            <col class="col-md-{{ 12-3-msgzone_width|default(0) }}"/>
+                            <col class="col-md-{{ msgzone_width|default(0) }}"/>
                         </colgroup>
+                        {{base_dialog_advanced}}
                         <tbody>
                         {%  if base_dialog_advanced|default(false) or base_dialog_help|default(false) %}
                         <tr>
                             <td>{% if base_dialog_advanced|default(false) %}<a href="#"><i class="fa fa-toggle-off text-danger" id="show_advanced_formDialog{{base_dialog_id}}"></i></a> <small>{{ lang._('advanced mode') }}</small>{% endif %}</td>
-                            <td colspan="2" style="text-align:right;">
+                            {# <td colspan="2" style="text-align:right;">
                                 {% if base_dialog_help|default(false) %}<small>{{ lang._('full help') }}</small> <a href="#"><i class="fa fa-toggle-off text-danger" id="show_all_help_formDialog{{base_dialog_id}}"></i></a>{% endif %}
-                            </td>
+                            </td> #}
                         </tr>
                         {% endif %}
                         {% for field in base_dialog_fields|default({})%}
@@ -99,7 +100,7 @@
     </table>
   </div>
   <div class="table-responsive {{field['style']|default('')}}">
-    <table class="table table-striped table-condensed">
+    <table class="table table-condensed opnsense_standard_table_form">
         <colgroup>
             <col class="col-md-3"/>
             <col class="col-md-{{ 12-3-msgzone_width|default(5) }}"/>

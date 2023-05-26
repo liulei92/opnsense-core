@@ -214,9 +214,6 @@ include("head.inc");
         $(".rule_select:not(:disabled)").prop("checked", $(this).prop("checked"));
     });
 
-    // watch scroll position and set to last known on page load
-    watchScrollPosition();
-
     // move category block
     $("#category_block").detach().appendTo($(".page-content-head > .container-fluid > .list-inline"));
     $("#category_block").addClass("pull-right");

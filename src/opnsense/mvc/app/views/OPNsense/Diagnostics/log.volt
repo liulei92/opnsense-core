@@ -100,6 +100,11 @@
                   $("#severity_filter").val("Debug").change();
               }
           });
+
+          // 移动extraActions操作到 actions
+          $("#extraActions").detach().prependTo('#grid-log-header > .row > .actionBar');
+           // fade contentbox，从而忽略prependTo的闪烁现象
+          $(".content-box").fadeIn();
       });
 
       $("#flushlog").on('click', function(event){
@@ -192,63 +197,51 @@
 
 </script>
 
-<div class="content-box">
-    <div class="content-box-main">
-        <div class="table-responsive">
-            <div  class="col-sm-12">
-                <div class="hidden">
-                    <!-- filter per type container -->
-                    <div id="severity_filter_container" class="btn-group">
-                        <select id="severity_filter" data-title="{{ lang._('Severity') }}" class="selectpicker" data-width="200px">
-                            <option value="Emergency">{{ lang._('Emergency') }}</option>
-                            <option value="Alert">{{ lang._('Alert') }}</option>
-                            <option value="Critical">{{ lang._('Critical') }}</option>
-                            <option value="Error">{{ lang._('Error') }}</option>
-                            <option value="Warning" selected>{{ lang._('Warning') }}</option>
-                            <option value="Notice">{{ lang._('Notice') }}</option>
-                            <option value="Informational">{{ lang._('Informational') }}</option>
-                            <option value="Debug">{{ lang._('Debug') }}</option>
-                        </select>
-                    </div>
-                </div>
-                <table id="grid-log" class="table table-condensed table-hover table-striped table-responsive">
-                    <thead>
-                    <tr>
-                        <th data-column-id="timestamp" data-width="11em" data-type="string">{{ lang._('Date') }}</th>
-                        <th data-column-id="facility" data-type="string" data-visible="false">{{ lang._('Facility') }}</th>
-                        <th data-column-id="severity" data-type="string" data-width="2em">{{ lang._('Severity') }}</th>
-                        <th data-column-id="process_name" data-width="2em" data-type="string">{{ lang._('Process') }}</th>
-                        <th data-column-id="pid" data-width="2em" data-type="numeric" data-visible="false">{{ lang._('PID') }}</th>
-                        <th data-column-id="line" data-type="string">{{ lang._('Line') }}</th>
-                        <th data-column-id="rnum" data-type="numeric" data-formatter="page"  data-width="2em"></th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    </tbody>
-                    <tfoot>
-                      <td></td>
-                      <td>
-                        <button id="exportbtn"
-                            data-toggle="tooltip" title="" type="button"
-                            class="btn btn-xs btn-default pull-right"
-                            data-original-title="{{ lang._('download selection')}}">
-                            <span class="fa fa-cloud-download"></span>
-                        </button>
-                      </td>
-                    </tfoot>
-                </table>
-                <table class="table">
-                    <tbody>
-                        <tr>
-                            <td>
-                              <button class="btn btn-primary pull-right" id="flushlog">
-                                  {{ lang._('Clear log') }}
-                              </button>
-                            </td>
-                        </tr>
-                    </tbody>
-                </table>
+<div class="content-box" style="display: none;">
+    <div class="table-responsive">
+        <div class="hidden">
+            <!-- filter per type container -->
+            <div id="severity_filter_container" class="btn-group">
+                <select id="severity_filter" data-title="{{ lang._('Severity') }}" class="selectpicker" data-width="200px">
+                    <option value="Emergency">{{ lang._('Emergency') }}</option>
+                    <option value="Alert">{{ lang._('Alert') }}</option>
+                    <option value="Critical">{{ lang._('Critical') }}</option>
+                    <option value="Error">{{ lang._('Error') }}</option>
+                    <option value="Warning" selected>{{ lang._('Warning') }}</option>
+                    <option value="Notice">{{ lang._('Notice') }}</option>
+                    <option value="Informational">{{ lang._('Informational') }}</option>
+                    <option value="Debug">{{ lang._('Debug') }}</option>
+                </select>
+            </div>
+            <!-- 导入按钮插入 -->
+            <div id="extraActions" class="btn-group pull-left">
+                <button
+                    id="exportbtn"
+                    data-toggle="tooltip" title="" type="button"
+                    class="btn btn-default mr16"
+                    data-original-title="{{ lang._('download selection')}}">
+                    <span class="fa fa-cloud-download"></span>
+                    {{ lang._('download selection')}}
+                </button>
+                <button class="btn btn-primary" id="flushlog">
+                    {{ lang._('Clear log') }}
+                </button>
             </div>
         </div>
+        <table id="grid-log" class="table table-condensed table-hover table-striped table-responsive">
+            <thead>
+                <tr>
+                    <th data-column-id="timestamp" data-width="11em" data-type="string">{{ lang._('Date') }}</th>
+                    <th data-column-id="facility" data-type="string" data-visible="false">{{ lang._('Facility') }}</th>
+                    <th data-column-id="severity" data-type="string" data-width="6em">{{ lang._('Severity') }}</th>
+                    <th data-column-id="process_name" data-width="36em" data-type="string">{{ lang._('Process') }}</th>
+                    <th data-column-id="pid" data-width="2em" data-type="numeric" data-visible="false">{{ lang._('PID') }}</th>
+                    <th data-column-id="line" data-type="string">{{ lang._('Line') }}</th>
+                    <th data-column-id="rnum" data-type="numeric" data-formatter="page"  data-width="2em"></th>
+                </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
     </div>
 </div>

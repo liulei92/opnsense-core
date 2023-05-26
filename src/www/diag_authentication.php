@@ -101,11 +101,15 @@ include("head.inc");
         <section class="col-xs-12">
           <div class="content-box tab-content">
             <form id="iform" name="iform"  method="post">
-            <table class="table table-striped opnsense_standard_table_form">
+            <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
               <tbody>
                 <tr>
-                  <td style="width:22%"><?=gettext("Authentication Server"); ?></td>
-                  <td style="width:78%">
+                  <td><?=gettext("Authentication Server"); ?></td>
+                  <td>
                     <select class="selectpicker" name="authmode" id="authmode" >
 <?php
                     foreach (auth_get_authserver_list() as $auth_server_id => $auth_server):?>
@@ -118,16 +122,16 @@ include("head.inc");
                   </td>
                 </tr>
                 <tr>
-                  <td style="width:22%"><?=gettext("Username"); ?></td>
-                  <td style="width:78%"><input type="text" name="username" value="<?=htmlspecialchars($pconfig['username']);?>"></td>
+                  <td><?=gettext("Username"); ?></td>
+                  <td><input type="text" name="username" value="<?=htmlspecialchars($pconfig['username']);?>"></td>
                 </tr>
                 <tr>
-                  <td style="width:22%"><?=gettext("Password"); ?></td>
-                  <td style="width:78%"><input type="password" autocomplete="new-password" name="password" value="<?=htmlspecialchars($pconfig['password']);?>"></td>
+                  <td><?=gettext("Password"); ?></td>
+                  <td><input type="password" autocomplete="new-password" name="password" value="<?=htmlspecialchars($pconfig['password']);?>"></td>
                 </tr>
                 <tr>
-                  <td style="width:22%">&nbsp;</td>
-                  <td style="width:78%"><input id="save" name="save" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Test')) ?>" /></td>
+                  <td></td>
+                  <td><input id="save" name="save" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Test')) ?>" /></td>
                 </tr>
               </tbody>
             </table>

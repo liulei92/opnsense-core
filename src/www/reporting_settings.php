@@ -221,7 +221,7 @@ $(document).ready(function() {
           <section class="col-xs-12">
             <div class="tab-content content-box col-xs-12">
               <div class="table-responsive">
-                <table class="table table-striped opnsense_standard_table_form">
+                <table class="table opnsense_standard_table_form">
                   <tr>
                     <td colspan="2"><strong><?=gettext('Unbound DNS reporting');?></strong></td>
                   </tr>
@@ -233,10 +233,10 @@ $(document).ready(function() {
                     </td>
                   </tr>
                   <tr>
-                    <td>&nbsp;</td>
+                    <td></td>
                     <td>
-                        <input type="button" name="SaveDNS" id="SaveDNS" class="btn btn-primary" value="<?= html_safe(gettext("Save")) ?>" />
-                        <input type="button" name="ResetDNS" id="ResetDNS" class="btn btn-default" value="<?= html_safe(gettext("Reset DNS data")) ?>" />
+                        <input type="button" name="save" id="SaveDNS" class="btn btn-primary mr16" value="<?= html_safe(gettext("Save")) ?>" />
+                        <input type="button" name="cancel" id="ResetDNS" class="btn btn-default" value="<?= html_safe(gettext("Reset DNS data")) ?>" />
                     </td>
                   </tr>
                 </table>
@@ -246,7 +246,7 @@ $(document).ready(function() {
           <section class="col-xs-12">
             <div class="tab-content content-box col-xs-12">
               <div class="table-responsive">
-                <table class="table table-striped opnsense_standard_table_form">
+                <table class="table opnsense_standard_table_form">
                   <tr>
                     <td colspan="2"><strong><?=gettext('Reporting Database Options');?></strong></td>
                   </tr>
@@ -258,12 +258,12 @@ $(document).ready(function() {
                     </td>
                   </tr>
                   <tr>
-                    <td>&nbsp;</td>
+                    <td></td>
                     <td>
-                      <button name="Submit" type="submit" class="btn btn-primary" value="yes"><?= gettext('Save') ?></button>
-                      <input type="button" name="ResetRRD" id="ResetRRD" class="btn btn-default" value="<?= html_safe(gettext("Reset RRD Data")) ?>" />
-                      <input type="button" id="flush_netflow" class="btn btn-default" value="<?= html_safe(gettext("Reset Netflow Data")) ?>" />
-                      <input type="button" id="repair_netflow" class="btn btn-default" value="<?= html_safe(gettext("Repair Netflow Data")) ?>" />
+                      <button name="save" type="submit" class="btn btn-primary mr16" value="yes"><?= gettext('Save') ?></button>
+                      <input name="cancel" type="button" id="ResetRRD" class="btn btn-default mr16" value="<?= html_safe(gettext("Reset RRD Data")) ?>" />
+                      <input name="def" type="button" id="flush_netflow" class="btn btn-default mr16" value="<?= html_safe(gettext("Reset Netflow Data")) ?>" />
+                      <input name="def" type="button" id="repair_netflow" class="btn btn-default mr16" value="<?= html_safe(gettext("Repair Netflow Data")) ?>" />
                     </td>
                   </tr>
                   <tr>
@@ -277,7 +277,7 @@ $(document).ready(function() {
             </div>
             <div class="tab-content content-box col-xs-12">
               <div class="table-responsive">
-                <table class="table table-striped opnsense_standard_table_form">
+                <table class="table opnsense_standard_table_form">
                   <tr>
                     <td style="width:22%"><i class="fa fa-info-circle text-muted"></i> <?=gettext("Collected Reports");?> </td>
                     <td>

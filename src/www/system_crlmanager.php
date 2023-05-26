@@ -502,7 +502,7 @@ include("head.inc");
         if ($act == "new") :?>
           <form method="post" name="iform" id="iform">
             <input type="hidden" name="act" id="action" value="<?=$act;?>"/>
-            <table class="table table-striped opnsense_standard_table_form">
+            <table class="table opnsense_standard_table_form">
 <?php
               if (!isset($id)) :?>
               <tr>
@@ -534,7 +534,7 @@ include("head.inc");
               </tr>
             </table>
             <!-- import existing -->
-            <table id="existing" class="table table-striped opnsense_standard_table_form">
+            <table id="existing" class="table opnsense_standard_table_form">
               <thead>
                 <tr>
                   <th colspan="2"><?=gettext("Existing Certificate Revocation List");?></th>
@@ -553,7 +553,7 @@ include("head.inc");
               </tbody>
             </table>
             <!-- create internal -->
-            <table id="internal" class="table table-striped opnsense_standard_table_form">
+            <table id="internal" class="table opnsense_standard_table_form">
               <thead>
                 <tr>
                   <th colspan="2"><?=gettext("Internal Certificate Revocation List");?></th>
@@ -581,10 +581,11 @@ include("head.inc");
               </tbody>
             </table>
 
-            <table class="table table-striped opnsense_standard_table_form">
+            <table class="table opnsense_standard_table_form" style="border-spacing: 0;">
               <tr>
                 <td style="width:22%">&nbsp;</td>
                 <td style="width:78%">
+                  <input name="cancel" type="button" class="btn btn-default mr16" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_crlmanager.php'" />
                   <input id="submit" name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
 <?php
                   if (isset($id)) :?>
@@ -598,7 +599,7 @@ include("head.inc");
 <?php
           elseif ($act == "editimported") :?>
           <form method="post" name="iform" id="iform">
-            <table id="editimported" class="table table-striped opnsense_standard_table_form">
+            <table id="editimported" class="table opnsense_standard_table_form">
               <tr>
                 <th colspan="2"><?=gettext("Edit Imported Certificate Revocation List");?></th>
               </tr>
@@ -618,8 +619,9 @@ include("head.inc");
                 </td>
               </tr>
               <tr>
-                <td>&nbsp;</td>
+                <td></td>
                 <td>
+                  <input name="cancel" type="button" class="btn btn-default mr16" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_crlmanager.php'" />
                   <input id="submit" name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
                   <input name="id" type="hidden" value="<?=$id;?>" />
                   <input name="act" type="hidden" value="<?=$act;?>" />

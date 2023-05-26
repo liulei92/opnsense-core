@@ -392,6 +392,7 @@ include("head.inc");
 <?php } ?>
 
 <section class="page-content-main">
+    <?= $stepid ?>
     <div class="container-fluid">
 
         <?php
@@ -708,6 +709,15 @@ include("head.inc");
                                                 echo " cols='" . $field['cols'] . "' ";
                                             echo ">" . $value . "</textarea>\n";
 
+
+                                            if ($field['description'] != '') {
+                                                echo "<br /> " . gettext($field['description']);
+                                            }
+
+                                            break;
+                                        case "cancel":
+                                            echo "<td colspan=\"2\" style=\"text-align:center\">";
+                                            echo "<input type='submit' class=\"btn btn-primary\" name='" . $name . "' value=\"" . htmlspecialchars(gettext($field['name'])) . "\" />\n";
 
                                             if ($field['description'] != '') {
                                                 echo "<br /> " . gettext($field['description']);

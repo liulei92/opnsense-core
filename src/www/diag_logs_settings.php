@@ -179,13 +179,13 @@ $(document).ready(function() {
             <input type="hidden" id="action" name="action" value="" />
             <div class="tab-content content-box col-xs-12 __mb">
               <div class="table-responsive">
-                <table class="table table-striped opnsense_standard_table_form">
+                <table class="table opnsense_standard_table_form">
+                  <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                  </colgroup>
                   <tr>
-                    <td style="width:22%"><strong><?=gettext("Local Logging Options");?></strong></td>
-                    <td style="width:78%; text-align:right">
-                      <small><?=gettext("full help"); ?> </small>
-                      <i class="fa fa-toggle-off text-danger" style="cursor: pointer;" id="show_all_help_page"></i>
-                    </td>
+                    <td colspan="2"><strong><?=gettext("Local Logging Options");?></strong></td>
                   </tr>
                   <tr>
                     <td><a id="help_for_preservelogs" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Preserve logs (Days)') ?></td>
@@ -255,21 +255,18 @@ $(document).ready(function() {
                   <tr>
                     <td><a id="help_for_resetlogs" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext('Reset Logs') ?></td>
                     <td>
-                      <input name="resetlogs" id="resetlogs" type="submit" class="btn btn-default" value="<?= html_safe(gettext('Reset Log Files')) ?>"/>
+                      <input name="resetlogs" id="resetlogs" type="button" class="btn btn-default" value="<?= html_safe(gettext('Reset Log Files')) ?>"/>
                       <div class="hidden" data-for="help_for_resetlogs">
                         <?= gettext("Note: Clears all local log files and reinitializes them as empty logs. This also restarts the DHCP daemon. Use the Save button first if you have made any setting changes."); ?>
                       </div>
                     </td>
                   </tr>
-                </table>
-              </div>
-            </div>
-            <div class="tab-content content-box col-xs-12">
-              <div class="table-responsive">
-                <table class="table table-striped opnsense_standard_table_form">
+
                   <tr>
-                    <td style="width:22%"></td>
-                    <td style="width:78%"><input name="Submit" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>"/>
+                    <td></td>
+                    <td>
+                        <input name="cancel" type="button" class="btn btn-default mr16" value="<?= html_safe(gettext('Cancel')) ?>" onclick="window.location.href='/diag_logs_settings.php'" />
+                        <input name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>"/>
                     </td>
                   </tr>
                 </table>

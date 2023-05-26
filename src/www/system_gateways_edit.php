@@ -471,13 +471,13 @@ $( document ).ready(function() {
 <?php if (is_numeric($pconfig['attribute'])): ?>
               <input type="hidden" name="attribute" id="attribute" value="<?= html_safe($pconfig['attribute']) ?>"/>
 <?php endif ?>
-              <table class="table table-striped opnsense_standard_table_form">
+              <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
                 <tr>
-                  <td style="width:22%"><?=gettext("Edit gateway");?></td>
-                  <td style="width:78%; text-align:right">
-                    <small><?=gettext("full help"); ?> </small>
-                    <i class="fa fa-toggle-off text-danger"  style="cursor: pointer;" id="show_all_help_page"></i>
-                  </td>
+                  <td colspan="2"><?=gettext("Edit gateway");?></td>
                 </tr>
                 <tr>
                   <td><a id="help_for_disabled" href="#" class="showhelp"><i class="fa fa-info-circle"></i></a> <?=gettext("Disabled"); ?></td>
@@ -618,7 +618,7 @@ $( document ).ready(function() {
                 <tr class="advanced visible">
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Advanced");?></td>
                   <td>
-                    <input type="button" id="btn_advanced" value="<?= html_safe(gettext('Advanced')) ?>" class="btn btn-default btn-xs"/><?=gettext(" - Show advanced option"); ?>
+                    <input type="button" id="btn_advanced" value="<?= html_safe(gettext(' - Show advanced option')) ?>" class="btn btn-default"/>
                   </td>
                 </tr>
                 <tr class="advanced hidden">
@@ -739,11 +739,10 @@ $( document ).ready(function() {
                   </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td></td>
                   <td>
-                    <input name="Submit" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Save')) ?>" />
-                    <input type="button" class="btn btn-default" value="<?= html_safe(gettext('Cancel')) ?>"
-                           onclick="window.location.href = '/system_gateways.php';" />
+                    <input name="cancel" type="button" class="btn btn-default mr16" value="<?= html_safe(gettext('Cancel')) ?>" onclick="window.location.href = '/system_gateways.php';" />
+                    <input name="save" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Save')) ?>" />
 <?php
                     if (isset($id)) :?>
                     <input name="id" type="hidden" value="<?=$id;?>" />

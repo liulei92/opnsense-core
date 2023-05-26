@@ -170,7 +170,26 @@ $aclObj = new \OPNsense\Core\ACL();
     <header class="page-content-head">
       <div class="container-fluid">
         <ul class="list-inline">
-          <li><h1><?= html_safe(gentitle($menuBreadcrumbs)) ?></h1></li>
+<?php
+/*
+* <li><h1><?= html_safe(gentitle($menuBreadcrumbs)) ?></h1></li>
+* 面包屑跳转
+*/
+?>
+          <li class="menu-breadcrumbs">
+<?php
+            for($x=0; $x<count($menuBreadcrumbs); $x++):?>
+            <span>
+                <?= html_safe($menuBreadcrumbs[$x]['name']);?>
+<?php
+                if ($x != count($menuBreadcrumbs) - 1):?>
+                    <i>></i>
+<?php
+                endif;?>
+            </span>
+<?php
+            endfor;?>
+          </li>
           <li class="btn-group-container">
             <form method="post">
               <?php

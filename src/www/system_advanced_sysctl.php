@@ -234,20 +234,25 @@ $( document ).ready(function() {
       <section class="col-xs-12">
         <div class="table-responsive content-box tab-content" style="overflow: auto;">
 <?php if ($act != 'edit'): ?>
+        <div class="row mb8">
+            <div class="col-sm-12 fz0">
+                <a href="system_advanced_sysctl.php?act=edit" class="btn btn-primary mr16" ghost data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                  <i class="fa fa-plus fa-fw"></i>
+                  <?= html_safe(gettext('Add')) ?>
+                </a>
+                <a href="#set_defaults" class="btn btn-danger" ghost data-toggle="tooltip" title="<?= html_safe(gettext('Default')) ?>">
+                  <i class="fa fa-trash-o fa-fw"></i>
+                  <?= html_safe(gettext('Default')) ?>
+                </a>
+            </div>
+        </div>
           <table class="table table-striped">
             <tr>
               <th><?= gettext('Name') ?></th>
               <th><?= gettext('Description') ?></th>
               <th><?= gettext('Type') ?></th>
               <th><?= gettext('Value') ?></th>
-              <th class="text-nowrap">
-                <a href="system_advanced_sysctl.php?act=edit" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
-                  <i class="fa fa-plus fa-fw"></i>
-                </a>
-                <a href="#set_defaults" class="btn btn-danger btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Default')) ?>">
-                  <i class="fa fa-trash-o fa-fw"></i>
-                </a>
-              </th>
+              <th class="text-nowrap"><?=gettext("Commands"); ?></th>
             </tr>
 <?php foreach ($a_tunable as &$tunable): ?>
               <tr>
@@ -300,10 +305,13 @@ $( document ).ready(function() {
             </table>
 <?php else: ?>
             <form method="post">
-              <table class="table table-striped opnsense_standard_table_form">
+              <table class="table opnsense_standard_table_form">
+                <colgroup>
+                    <col style="width:22%"/>
+                    <col/>
+                </colgroup>
                 <tr>
-                  <td style="width:22%"><strong><?= gettext('Edit system tunable') ?></strong></td>
-                  <td style="width:78%"></td>
+                  <td colspan="2"><strong><?= gettext('Edit system tunable') ?></strong></td>
                 </tr>
                 <tr>
                   <td><i class="fa fa-info-circle text-muted"></i> <?=gettext("Tunable"); ?></td>
@@ -324,10 +332,10 @@ $( document ).ready(function() {
                   </td>
                 </tr>
                 <tr>
-                  <td>&nbsp;</td>
+                  <td></td>
                   <td>
-                    <input name="Submit" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
-                    <input type="button" class="btn btn-default" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_advanced_sysctl.php'" />
+                    <input name="cancel" type="button" class="btn btn-default mr16" value="<?=html_safe(gettext("Cancel"));?>" onclick="window.location.href='/system_advanced_sysctl.php'" />
+                    <input name="save" type="submit" class="btn btn-primary" value="<?=html_safe(gettext('Save')); ?>" />
 <?php if (isset($id)): ?>
                     <input name="id" type="hidden" value="<?=$id;?>" />
 <?php endif ?>

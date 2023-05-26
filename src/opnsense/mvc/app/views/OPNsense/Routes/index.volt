@@ -38,13 +38,27 @@
             'toggle':'/api/routes/routes/toggleroute/',
             'options':{selection:false, multiSelect:false}
           }
-        );
+        ).on("loaded.rs.jquery.bootgrid", function(e) {
+            // 移动extraActions操作到 actions
+            $("#extraActions").detach().prependTo('#grid-routes-header > .row > .actionBar');
+            // fade contentbox，从而忽略prependTo的闪烁现象
+            $(".content-box").fadeIn();
+        });
+
         $("#reconfigureAct").SimpleActionButton();
     });
 
 </script>
 
-<div class="content-box">
+<div class="content-box" style="display: none;">
+    <div class="alert alert-info">
+        {{ lang._('Do not enter static routes for networks assigned on any interface of this firewall. Static routes are only used for networks reachable via a different router, and not reachable via your default gateway.')}}
+    </div>
+
+    <div id="routeChangeMessage" class="alert alert-info" style="display: none" role="alert">
+        {{ lang._('After changing settings, please remember to apply them with the button below') }}
+    </div>
+
     <table id="grid-routes" class="table table-responsive" data-editDialog="DialogRoute" data-editAlert="routeChangeMessage">
         <thead>
             <tr>
@@ -58,29 +72,26 @@
         </thead>
         <tbody>
         </tbody>
-        <tfoot>
+        <tfoot class="hidden">
             <tr>
                 <td colspan="5"></td>
                 <td>
-                    <button data-action="add" type="button" class="btn btn-xs btn-primary"><span class="fa fa-fw fa-plus"></span></button>
+                    <div id="extraActions" class="fl fz0">
+                        <button data-action="add" type="button" ghost class="btn btn-primary min-w80"><span class="fa fa-fw fa-plus"></span>{{ lang._('Add') }}</button>
+
+                        <button
+                            id="reconfigureAct"
+                            class="btn btn-primary min-w80 ml16"
+                            data-endpoint='/api/routes/routes/reconfigure'
+                            data-label="{{ lang._('Apply') }}"
+                            data-error-title="{{ lang._('Error reconfiguring routes') }}"
+                            type="button">
+                        </button>
+                    </div>
                 </td>
             </tr>
         </tfoot>
     </table>
-    <div class="col-md-12">
-        <div id="routeChangeMessage" class="alert alert-info" style="display: none" role="alert">
-            {{ lang._('After changing settings, please remember to apply them with the button below') }}
-        </div>
-        {{ lang._('Do not enter static routes for networks assigned on any interface of this firewall. Static routes are only used for networks reachable via a different router, and not reachable via your default gateway.')}}
-        <hr/>
-        <button class="btn btn-primary" id="reconfigureAct"
-                data-endpoint='/api/routes/routes/reconfigure'
-                data-label="{{ lang._('Apply') }}"
-                data-error-title="{{ lang._('Error reconfiguring routes') }}"
-                type="button">
-        </button>
-        <br/><br/>
-    </div>
 </div>
 
 {{ partial("layout_partials/base_dialog",['fields':formDialogEditRoute,'id':'DialogRoute','label':lang._('Edit route')])}}

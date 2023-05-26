@@ -124,11 +124,11 @@ $.fn.UIBootgrid = function (params) {
     this.construct = function() {
         // set defaults
         let gridopt = {
-            ajax: true,
-            selection: true,
-            multiSelect: true,
-            rowCount:[7,14,20,50,100,-1],
-            url: params['search'],
+            ajax: true, // 默认是否执行url的请求
+            selection: true, // 选择
+            multiSelect: true, // header 多选
+            rowCount:[7,14,20,50,100,-1], // 页码
+            url: params['search'], // 默认url
             ajaxSettings: {
                 contentType: 'application/json;charset=utf-8',
                 dataType: "json",
@@ -194,7 +194,8 @@ $.fn.UIBootgrid = function (params) {
                     }
                 },
             },
-            onBeforeRenderDialog: null
+            onBeforeRenderDialog: null,
+            // navigation: 表的样式，0，1,2有表尾，3有表头和表尾
         };
 
         // merge additional options (if any)
@@ -225,7 +226,7 @@ $.fn.UIBootgrid = function (params) {
         }
         this_grid.onBeforeRenderDialog = gridopt.onBeforeRenderDialog;
 
-        // construct a new grid
+        // construct a new grid 页面加载完成后
         return this_grid.bootgrid(gridopt).on("loaded.rs.jquery.bootgrid", function (e) {
             // scale footer on resize
             $(this).find("tfoot td:first-child").attr('colspan',$(this).find("th").length - 1);
@@ -241,8 +242,15 @@ $.fn.UIBootgrid = function (params) {
                     }
                 });
             });
+            try {
+                params['onLoaded'] && params['onLoaded']($(this));
+            } catch (error) {
+                console.log(error);
+            }
 
-        });
+        }).on("initialized.rs.jquery.bootgrid", function (e) {
+            console.log("initialized");
+        });;
     };
 
     this.show_edit_dialog = function(event, endpoint) {

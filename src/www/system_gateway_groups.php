@@ -106,11 +106,19 @@ $( document ).ready(function() {
       }
 ?>
       <section class="col-xs-12">
-        <div class="container-fluid">
-          <div class="tab-content content-box">
+        <div class="content-box">
+          <div class="table-responsive">
             <form method="post" name="iform" id="iform">
               <input type="hidden" id="act" name="act" value="" />
               <input type="hidden" id="id" name="id" value="" />
+              <div class="row mb8">
+                <div class="col-sm-12 fz0">
+                    <a href="system_gateway_groups_edit.php?act=new" class="btn btn-primary mr16" ghost data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
+                        <i class="fa fa-plus fa-fw"></i>
+                        <?= html_safe(gettext('Add')) ?>
+                    </a>
+                </div>
+              </div>
               <div class="table-responsive">
                 <table class="table table-striped table-condensed">
                   <thead>
@@ -118,11 +126,7 @@ $( document ).ready(function() {
                       <td><?= gettext('Name') ?></td>
                       <td><?= gettext('Gateways') ?></td>
                       <td class="hidden-xs"><?= gettext('Description') ?></td>
-                      <td class="text-nowrap">
-                        <a href="system_gateway_groups_edit.php" class="btn btn-primary btn-xs" data-toggle="tooltip" title="<?= html_safe(gettext('Add')) ?>">
-                          <i class="fa fa-plus fa-fw"></i>
-                        </a>
-                      </td>
+                      <th class="text-nowrap"><?=gettext("Commands"); ?></th>
                     </tr>
                   </thead>
                   <tbody>

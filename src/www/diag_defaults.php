@@ -85,8 +85,8 @@ $(document).ready(function() {
           </ul>
           <p><strong><?=gettext("Are you sure you want to proceed?");?></strong></p>
           <div class="btn-group">
-            <input type="submit" name="Submit" class="btn btn-primary" value="<?= html_safe(gettext('Yes')) ?>" />
-            <a href="/" class="btn btn-default"><?=gettext("No");?></a>
+            <a href="/" name="cancel" class="btn btn-default mr16"><?=gettext("No");?></a>
+            <input name="submit" type="submit" class="btn btn-primary" value="<?= html_safe(gettext('Yes')) ?>" />
           </div>
         </form>
       </section>

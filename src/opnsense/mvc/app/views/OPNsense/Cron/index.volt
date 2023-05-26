@@ -65,15 +65,19 @@
          * link grid actions
          *************************************************************************************************************/
 
-        $("#grid-jobs").UIBootgrid(
-                {   'search':'/api/cron/settings/searchJobs',
-                    'get':'/api/cron/settings/getJob/',
-                    'set':'/api/cron/settings/setJob/',
-                    'add':'/api/cron/settings/addJob/',
-                    'del':'/api/cron/settings/delJob/',
-                    'toggle':'/api/cron/settings/toggleJob/'
-                }
-        );
+        $("#grid-jobs").UIBootgrid({
+            'search':'/api/cron/settings/searchJobs',
+            'get':'/api/cron/settings/getJob/',
+            'set':'/api/cron/settings/setJob/',
+            'add':'/api/cron/settings/addJob/',
+            'del':'/api/cron/settings/delJob/',
+            'toggle':'/api/cron/settings/toggleJob/'
+        }).on("loaded.rs.jquery.bootgrid", function(e) {
+            // 移动extraActions操作到 actions
+            $("#extraActions").detach().prependTo('#grid-jobs-header > .row > .actionBar');
+            // fade contentbox，从而忽略prependTo的闪烁现象
+            $(".content-box").fadeIn();
+        });;
 
         {% if (selected_uuid|default("") != "") %}
             openDialog('{{selected_uuid}}');
@@ -91,56 +95,52 @@
 
 </script>
 
+<div class="content-box" style="display: none;">
+    <div id="cronChangeMessage" class="alert alert-info" style="display: none" role="alert">
+        {{ lang._('After changing settings, please remember to apply them with the button below') }}
+    </div>
 
-<ul class="nav nav-tabs" data-tabs="tabs" id="maintabs">
-    <li class="active"><a data-toggle="tab" href="#grid-jobs">{{ lang._('Jobs') }}</a></li>
-</ul>
-<div class="tab-content content-box">
-    <div id="jobs" class="tab-pane fade in active">
-        <!-- tab page "cron items" -->
-        <table id="grid-jobs" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogEdit"
-                 {% if (selected_uuid|default("") == "") %} data-editAlert="cronChangeMessage" {% endif %} >
-            <thead>
+    <table id="grid-jobs" class="table table-condensed table-hover table-striped table-responsive" data-editDialog="DialogEdit"
+                {% if (selected_uuid|default("") == "") %} data-editAlert="cronChangeMessage" {% endif %} >
+        <thead>
             <tr>
                 <th data-column-id="origin" data-type="string" data-visible="false">{{ lang._('Origin') }}</th>
                 <th data-column-id="enabled" data-width="6em" data-type="string" data-formatter="rowtoggle">{{ lang._('Enabled') }}</th>
-                <th data-column-id="minutes" data-type="string">{{ lang._('Minutes') }}</th>
-                <th data-column-id="hours" data-type="string">{{ lang._('Hours') }}</th>
-                <th data-column-id="days" data-type="string">{{ lang._('Days') }}</th>
-                <th data-column-id="months" data-type="string">{{ lang._('Months') }}</th>
+                <th data-column-id="minutes" data-width="4em" data-type="string">{{ lang._('Minutes') }}</th>
+                <th data-column-id="hours" data-width="4em" data-type="string">{{ lang._('Hours') }}</th>
+                <th data-column-id="days" data-width="4em" data-type="string">{{ lang._('Days') }}</th>
+                <th data-column-id="months" data-width="4em" data-type="string">{{ lang._('Months') }}</th>
                 <th data-column-id="weekdays" data-type="string">{{ lang._('Weekdays') }}</th>
                 <th data-column-id="description" data-type="string">{{ lang._('Description') }}</th>
                 <th data-column-id="command" data-type="string">{{ lang._('Command') }}</th>
                 <th data-column-id="commands" data-width="7em" data-formatter="commands" data-sortable="false">{{ lang._('Edit') }} | {{ lang._('Delete') }}</th>
                 <th data-column-id="uuid" data-type="string" data-identifier="true" data-visible="false">{{ lang._('ID') }}</th>
             </tr>
-            </thead>
-            <tbody>
-            </tbody>
-            <tfoot>
-            <tr>
-                <td></td>
-                <td>
-                    <button data-action="add" type="button" class="btn btn-xs btn-primary"><span class="fa fa-fw fa-plus"></span></button>
-                    <button data-action="deleteSelected" type="button" class="btn btn-xs btn-default"><span class="fa fa-fw fa-trash-o"></span></button>
-                </td>
-            </tr>
-            </tfoot>
-        </table>
-    </div>
-    <div class="col-md-12">
-        <div id="cronChangeMessage" class="alert alert-info" style="display: none" role="alert">
-            {{ lang._('After changing settings, please remember to apply them with the button below') }}
-        </div>
-        <hr/>
-        <button class="btn btn-primary" id="reconfigureAct"
-                data-endpoint='/api/cron/service/reconfigure'
-                data-label="{{ lang._('Apply') }}"
-                data-error-title="{{ lang._('Error reconfiguring cron') }}"
-                type="button"
-        ></button>
-        <br/><br/>
-    </div>
+        </thead>
+        <tbody>
+        </tbody>
+        <tfoot>
+        <tr>
+            <td></td>
+            <td>
+                <div id="extraActions" class="fl fz0">
+                    <button data-action="add" type="button" ghost class="btn btn-primary min-w80"><span class="fa fa-fw fa-plus"></span>{{ lang._('Add') }}</button>
+
+                    <button data-action="deleteSelected" type="button" ghost class="btn btn-primary min-w80 ml16"><span class="fa fa-fw fa-trash-o"></span>{{ lang._('Delete') }}</button>
+
+                    <button
+                        id="reconfigureAct"
+                        class="btn btn-primary min-w80 ml16"
+                        data-endpoint='/api/cron/service/reconfigure'
+                        data-label="{{ lang._('Apply') }}"
+                        data-error-title="{{ lang._('Error reconfiguring cron') }}"
+                        type="button">
+                    </button>
+                </div>
+            </td>
+        </tr>
+        </tfoot>
+    </table>
 </div>
 
 {# include dialog #}

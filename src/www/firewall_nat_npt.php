@@ -188,9 +188,6 @@ include("head.inc");
 
     // hook category functionality
     hook_firewall_categories();
-
-    // watch scroll position and set to last known on page load
-    watchScrollPosition();
   });
   </script>
 
