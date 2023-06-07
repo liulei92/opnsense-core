@@ -2,7 +2,7 @@
 
 # Perform major updates
 
-for STAGE in B P; do
+for STAGE in B P; do # K
 	if opnsense-update -${STAGE}; then
 		echo "Rebooting now."
 		reboot
